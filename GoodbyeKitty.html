@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+	<style type="text/css">
+	<!--
+	body{
+	margin: 0;
+	padding: 0;
+	}
+	--></style>
+  	<script type="text/javascript" src='js/Background.js'></script>
+  	<script type="text/javascript" src='js/Fuzzle.js'></script>
+  	<script type="text/javascript" src='js/Keyboard.js'></script>
+  	<script type="text/javascript" src='js/Mouse.js'></script>
+  	<script type="text/javascript" src='js/trail.js'></script>
+  	<script type="text/javascript" src='js/Button.js'></script>
+  	<script type="text/javascript" src='js/LevelDirector.js'></script>
+  	<script type="text/javascript" src='js/Obstacle.js'></script>
+  	<script type="text/javascript" src='js/Powerup.js'></script>
+	<script type="text/javascript" src='js/AngelAlliance.js'></script>
+	<script type="text/javascript" src='js/Collision.js'></script>
+  	<script type="text/javascript" src='js/HUD.js'></script>
+	<script type="text/javascript">
+
+	//Window variables
+	var windowWidth;
+	var windowHeight;
+	var tempWidthRatio;
+	var tempHeghtRatio;
+	var g_resize = 1;
+
+	//Shit I don't understand
+	var g_canvas;
+	var g_foreground;
+	var g_background;
+	var g_context;
+	var g_button;
+	var g_HUD;
+
+	//Fuzzle
+	var g_fuzzle;
+
+	//Powerups
+	var g_powerup;
+	var g_powerupFlag;
+	var g_angelAlliance;
+	var g_angelAllianceFlag;
+
+	//Collision flags (debug purpose)
+	var g_fuzzleCollisionFlag = false;
+	var g_obstacleCollisionFlag = false;
+	var g_powerupCollisionFlag = false;
+	var g_angelAllianceCollisionFlag = false;
+
+	//Intervals
+	var g_renderInterval;
+	var g_clockInterval;
+	var g_inputInterval;
+	var g_createObstacleInterval;
+	var g_powerupInterval;
+	var g_checkCollisionInterval;
+	var gametimer;
+	
+	//Object arrays
+	var g_trail = [];
+	var g_obstacle = [];
+
+	//Keys arrays
+	var g_keys = [];
+	var g_mouseDown = false;
+	var g_mouseX = [];
+	var g_mouseY = [];
+	var len = 0;
+	var g_pauseKeyPressed = true;
+
+	//Background Level Manager (level increases when timer is a multiple of transition, function will be called in Repaint)
+	var g_levelDirector;
+	var g_gameState = "mainmenu";
+	var g_paused = false;
+
+	//Audio manager
+	var g_audioLoop;
+
+	//Scores
+	var bestScore = 0;
+	var worstScore = 0;
+	var firstTimePlay = true;
+	var totalPlayTime = 0;
+	var totalPlay = 0;
+	var totalHeartsCollected = 0;
+	var totalPowerupsCollected = 0;
+	var totalDeath = 0;
+	var playCounter = 0;
+	var heartsCollectedCounter = 0;
+	var powerupsCollectedCounter = 0;
+	var deathCounter = 0;
+
+	/**
+ 	* It's the main.
+ 	*/
+	function main(){
+		//Initializes main screen, key controls. Game start event is handled by mousedown event
+		initCanvas();
+		rendermainmenu();
+		document.addEventListener('keydown', keyDown, false);
+		document.addEventListener('keyup', keyUp, false);
+		document.addEventListener('mousedown', mouseDown, false);
+		document.addEventListener('mouseup', mouseUp, false);
+		document.addEventListener('mousemove', mouseXY, false);
+		g_audioLoop = document.getElementById("nyan_cat");
+		g_audioLoop.volume = 0;
+
+	}
+
+	/**
+ 	* Initializes the canvas.
+ 	*/
+	function initCanvas(){
+	g_canvas = document.getElementById('theCanvas');
+	g_context = g_canvas.getContext('2d');
+	
+	//Gets the innerWidth and innerHeight of browser and stores the minimum ratio to g_resize, subsequently resizing g_canvas
+	windowWidth = window.innerWidth;
+	windowHeight = window.innerHeight;
+	tempWidthRatio = windowWidth / g_canvas.width;
+	tempHeightRatio = windowHeight / g_canvas.height;
+	g_resize = Math.min(tempWidthRatio,tempHeightRatio);
+	g_canvas.width *= g_resize;
+	g_canvas.height *= g_resize;
+	}
+
+	function renderLoop()
+	{ 
+	if ( g_paused )
+	return;
+
+	g_background.render();
+	g_foreground.render();
+	g_fuzzle.render();
+	renderArray(g_trail);
+	// introduce enemy
+	renderArray(g_obstacle);
+	if (g_angelAllianceFlag == 1)
+		{
+			g_angelAlliance = new Alliance("angelalliance", 0, 9);
+			g_angelAlliance.render();
+		}
+	if (g_powerupFlag == 1)
+		{
+			g_powerup.render();
+		}
+	g_HUD.render();
+	renderHUD();
+	}
+
+	function inputLoop()
+	{
+		// Makes fuzzle jump up whenever a key is pressed
+		mouse();
+		keyboard();
+
+		if (g_gameState == "inlevel")
+		{
+			if (g_fuzzle.lives <= 0)
+			{
+				g_audioLoop.pause();
+				g_levelDirector.gameOver();
+			}
+		}
+	}
+
+/*
+	function printNumberIntoStringAsImages(number,printx,printy)
+	{
+		var string = number.toString();
+		var length = string.length;
+		var n = string.charAt();
+		var counter = 0;
+		var imageWidth = 0;
+		while (counter <= length)
+		{
+			var n = string.charAt(counter);
+
+			switch(n)
+			{
+			case 0:
+			   draw at imageWidth
+			   set imageWidth += this.0width;
+			   break;
+			case 1:
+			   execute 1
+			   break;
+			case 2:
+			   execute 2
+			   break;
+			case 3:
+			   execute 3
+			   break;
+			case 4:
+			   execute 4
+			   break;
+			case 5:
+			   execute 5
+			   break;
+			case 6:
+			   execute 6
+			   break;
+			case 7:
+			   execute 7
+			   break;
+			case 8:
+			   execute 8
+			   break;
+			case 9:
+			   execute 9
+			   break;
+		}
+	}
+*/
+	
+	/**
+ 	* Creates an obstacle. Called by g_createObstacleInterval.
+ 	*/
+	function createObstacle() 
+	{
+	var d;
+	
+	/**
+ 	* Determines randomly (if 0 then devil, if 1,2 then pillar) which obstacle to instantiate.
+ 	*/
+	if (Math.round(Math.random()*1.5) == 0) d = new obstacle("devil",-7);
+	else d = new obstacle("pillar",-5);
+	
+	// Instantiates new Obstacle
+	g_obstacle.push(d);
+	
+	// Resets the interval for the next obstacle creation. This is so that obstacles appear randomly
+	clearInterval(g_createObstacleInterval); 
+	var x = Math.round(Math.random() * 1000) + 800 - ((g_levelDirector.myCurrentLevel) * 100); 
+	g_createObstacleInterval = setInterval(createObstacle, x);
+	}  
+	
+	</script>
+  
+</head>
+
+<body onload = "main()">
+	
+	 <canvas align="left" id="theCanvas" width="960" height="640">empty</canvas>
+	 <div id="hidden" style="visibility:hidden; width:1px; height:1px; overflow:hidden">
+	
+    <img    id="cloud"
+            src="Images/cloud overlay.png">	
+	
+    <img    id="sky"
+            src="Images/sky.png">
+            
+    <img    id="fuzzle"
+            src="Images/freshfuzzle2.png">
+
+    <img    id="powerup"
+            src="Images/mysterybox.png">
+
+    <img    id="angelalliance"
+            src="Images/angelalliance.png">            
+
+    <img    id="trail"
+            src="Images/Fart.png">
+            
+    <img    id="firetrail"
+            src="Images/FieryFart.png">
+        
+    <img    id="devil"
+            src="Images/devil.png">
+            
+    <img    id="pillar"
+            src="Images/pillar.png">
+
+    <img    id="gamemainmenu"
+            src="Images/gamemainmenu.png">
+
+    <img    id="gameinstructionscreen"
+            src="Images/gamescreeninstruction.png">
+
+    <img    id="gamestatisticsscreen"
+            src="Images/gamescreenstatistics.png">
+
+    <img    id="gamereplayup"
+            src="Images/gamereplayup.png">         
+
+    <img    id="gamereplaydown"
+            src="Images/gamereplaydown.png">         
+
+    <img    id="gameplayup"
+            src="Images/gameplayup.png">         
+
+    <img    id="gameplaydown"
+            src="Images/gameplaydown.png">         
+
+    <img    id="gameinstructup"
+            src="Images/gameinstructup.png">
+
+    <img    id="gameinstructdown"
+            src="Images/gameinstructdown.png">
+
+    <img    id="gamestatsup"
+            src="Images/gamestatsup.png">
+
+    <img    id="gamestatsdown"
+            src="Images/gamestatsdown.png">
+
+    <img    id="gamebackup"
+            src="Images/gamebackup.png">
+
+    <img    id="gamebackdown"
+            src="Images/gamebackdown.png">
+
+    <img    id="gameover"
+            src="Images/gameover.png">
+
+    <img    id="HUDhearts"
+            src="Images/HUDhearts.png">
+
+    <img    id="HUDminiheart_red"
+            src="Images/HUDminiheart.png">
+
+    <img    id="HUDhearts_mine"
+            src="Images/HUDhearts_mine.png">
+
+    <img    id="HUDminiheart_grey"
+            src="Images/HUDminiheart_grey.png">
+
+    <img    id="pause"
+            src="Images/pause.png">
+            
+    <audio  id="nyan_cat" 
+            src="Audio/Fresh_Prince_of_Bel_air.ogg"
+            autobuffer='true'>
+    </audio>
+            
+	 </div>
+</body>
+</html>
