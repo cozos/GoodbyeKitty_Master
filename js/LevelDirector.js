@@ -64,14 +64,13 @@ LevelDirector.prototype.startLevel = function()
       g_audioLoop = document.getElementById("background_loop");
       g_audioLoop.loop = true;
       g_audioLoop.volume = 1;
-      //g_audioLoop.play();
+      g_audioLoop.play();
    }
 
    g_inputInterval = setInterval(inputLoop, 1000/24);
    g_clockInterval = setInterval(clockLoop, 100);
    g_renderInterval = setInterval(renderLoop, 1000/24);
    g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
-   //g_checkCollisionInterval = setInterval(collision, 1000/24);
 }
 
 LevelDirector.prototype.gameOver = function()
@@ -82,7 +81,7 @@ LevelDirector.prototype.gameOver = function()
 	clearInterval(g_renderInterval);
 	clearInterval(g_clockInterval);
 	clearInterval(g_createObstacleInterval);
-	//clearInterval(g_checkCollisionInterval);
+
 	g_context.clearRect(0,0,g_canvas.width,g_canvas.height);
 	g_background = new Background("gameover",0);
 	g_background.render();
@@ -172,7 +171,6 @@ function pause()
 		clearInterval(g_renderInterval);
 		clearInterval(g_clockInterval);
 		clearInterval(g_createObstacleInterval);
-		//clearInterval(g_checkCollisionInterval);
 
 	var pauseScreen = document.getElementById("gamemainmenu");
 	g_context.drawImage(pauseScreen, 0, 0, g_canvas.width, g_canvas.height);
@@ -207,7 +205,7 @@ function gobacktoGame()
 	g_renderInterval = setInterval(renderLoop, 1000/24);	
 	g_clockInterval = setInterval(clockLoop, 100);
 	g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
-	//g_checkCollisionInterval = setInterval(collision, 1000/24);
+
 }
 
 /* --------- End of Pause Loop ------------------ */
