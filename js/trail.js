@@ -9,8 +9,8 @@ function trail(element,speed){
 	this.height = this.ImageFile.height * g_resize;
 	
 	// Trail attributues
-	this.posx = g_fuzzle.posx - (0.3 * g_fuzzle.width);
-	this.posy = g_fuzzle.posy + (0.3 * g_fuzzle.height);
+	this.posx = g_fuzzle.posx - (0.1 * g_fuzzle.width);
+	this.posy = g_fuzzle.posy + (0.5 * g_fuzzle.height);
 	this.velocity = speed;
     this.counter = 0;
 }

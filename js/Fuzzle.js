@@ -66,10 +66,22 @@ fuzzle.prototype.render = function(){
 /**
  * What happens when fuzzle collides into something.
  */
-fuzzle.prototype.collided = function(){
-	// TODO.
+fuzzle.prototype.collidedpowerup = function(){
+	var a = new Alliance("angelalliance", g_alliance.length*2, 9+g_alliance.length*2);
+	g_alliance.push(a);
+}
+
+fuzzle.prototype.collidedobstacle = function(){
+	
+	if(g_alliance.length == 0){	
+    alert("You died, motherfucker");
     g_keys = [];
-    g_mousedown = false;
+    g_mouseDown = false;
+	}
+	else if(g_alliance.length > 0){
+		g_alliance[0].posx = -300;
+		g_alliance.splice(0,1);
+	}
 }
 
 /**

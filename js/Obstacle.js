@@ -35,7 +35,7 @@ obstacle.prototype.render = function(){
 	var scrollRate = Math.pow(1.25,(g_levelDirector.myCurrentLevel))
 	
 	// IF OBSTACLE IS OF TYPE DEVIL
-	if (this.type == "devil"){
+	if (this.type == "devil" || this.type == "powerup"){
 		
 		// Makes sure that devils move in one path for a while to prevent erratic movement
 		if (this.counter == 0){
@@ -84,6 +84,12 @@ obstacle.prototype.render = function(){
  * What happens when an obstacle collides into something. For now, the obstacle dissapears.
  */
 obstacle.prototype.collided = function(){
-	// TODO
-	this.posx = -100;
+	this.posx = -300;
+	if (this.type == "powerup"){	
+		 	return true;
+	}
+	else{
+		return false;
+	}
+	
 }

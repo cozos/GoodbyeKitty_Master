@@ -84,7 +84,7 @@ function keyboard()
 	}
 	if (g_keys[16] == true) //check if shift is pressed
 	{
-		g_angelAllianceFlag = 1;
+		g_fuzzle.collidedpowerup();
 	}
-	else {g_angelAllianceFlag = 0;}
+	
 }

@@ -1,5 +1,5 @@
 // Check for collisions
-function collision()
+/*function collision()
 {
 	if (collision_singleVSarray(g_fuzzle,g_obstacle,1))
 	{
@@ -22,23 +22,21 @@ function collision()
 		}
 	}
 }
-
+*/
 /*
  * Checks if a singular object collides with a singular object
  */
 function collision_singleVSsingle(single1, single2, flag){
-	if(checkCollision(single1, single2, flag))
-	return true;
+	checkCollision(single1, single2, flag);
 }
 	
+
 /*
  * Checks if a singular object collides with an array of objects 
  */
 function collision_singleVSarray(single, array, flag){
 	for(var i = 0; i < array.length; i++){
-		if (checkCollision(single, array[i], flag))
-		return true;
-		else {return false};
+		checkCollision(single, array[i], flag);
 	}
 }
 	
@@ -91,9 +89,11 @@ function collision_arrayVSarray(array, array){
  		// If the objects intersect, call collide.
  		if ( (((lower_x_1 > lower_x_2) && (lower_x_1 < upper_x_2)) || ((upper_x_1 > lower_x_2) && (upper_x_1 < upper_x_2))) &&
  			 (((lower_y_1 > lower_y_2) && (lower_y_1 < upper_y_2)) || ((upper_y_1 > lower_y_2) && (upper_y_1 < upper_y_2)))){
- 			object1.collided();
- 			object2.collided();
-			return true;
+ 			
+ 			var power = object2.collided();
+ 			if(power) object1.collidedpowerup();
+ 			else object1.collidedobstacle();
+ 			
 		}
  	}
 	

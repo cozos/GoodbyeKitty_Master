@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-
+<title>Goodbye Kitty</title>
 <head>
 	<style type="text/css">
-	<!--
 	body{
 	margin: 0;
 	padding: 0;
 	}
-	--></style>
+	</style>
   	<script type="text/javascript" src='js/Background.js'></script>
   	<script type="text/javascript" src='js/Fuzzle.js'></script>
   	<script type="text/javascript" src='js/Keyboard.js'></script>
@@ -17,7 +16,6 @@
   	<script type="text/javascript" src='js/Button.js'></script>
   	<script type="text/javascript" src='js/LevelDirector.js'></script>
   	<script type="text/javascript" src='js/Obstacle.js'></script>
-  	<script type="text/javascript" src='js/Powerup.js'></script>
 	<script type="text/javascript" src='js/AngelAlliance.js'></script>
 	<script type="text/javascript" src='js/Collision.js'></script>
   	<script type="text/javascript" src='js/HUD.js'></script>
@@ -27,7 +25,7 @@
 	var windowWidth;
 	var windowHeight;
 	var tempWidthRatio;
-	var tempHeghtRatio;
+	var tempHeightRatio;
 	var g_resize = 1;
 
 	//Shit I don't understand
@@ -58,13 +56,12 @@
 	var g_clockInterval;
 	var g_inputInterval;
 	var g_createObstacleInterval;
-	var g_powerupInterval;
-	var g_checkCollisionInterval;
 	var gametimer;
 	
 	//Object arrays
 	var g_trail = [];
 	var g_obstacle = [];
+	var g_alliance = [];
 
 	//Keys arrays
 	var g_keys = [];
@@ -141,17 +138,11 @@
 	renderArray(g_trail);
 	// introduce enemy
 	renderArray(g_obstacle);
-	if (g_angelAllianceFlag == 1)
-		{
-			g_angelAlliance = new Alliance("angelalliance", 0, 9);
-			g_angelAlliance.render();
-		}
-	if (g_powerupFlag == 1)
-		{
-			g_powerup.render();
-		}
+	renderArray(g_alliance);
+
 	g_HUD.render();
 	renderHUD();
+	collision_singleVSarray(g_fuzzle,g_obstacle,1);
 	}
 
 	function inputLoop()
@@ -170,55 +161,6 @@
 		}
 	}
 
-/*
-	function printNumberIntoStringAsImages(number,printx,printy)
-	{
-		var string = number.toString();
-		var length = string.length;
-		var n = string.charAt();
-		var counter = 0;
-		var imageWidth = 0;
-		while (counter <= length)
-		{
-			var n = string.charAt(counter);
-
-			switch(n)
-			{
-			case 0:
-			   draw at imageWidth
-			   set imageWidth += this.0width;
-			   break;
-			case 1:
-			   execute 1
-			   break;
-			case 2:
-			   execute 2
-			   break;
-			case 3:
-			   execute 3
-			   break;
-			case 4:
-			   execute 4
-			   break;
-			case 5:
-			   execute 5
-			   break;
-			case 6:
-			   execute 6
-			   break;
-			case 7:
-			   execute 7
-			   break;
-			case 8:
-			   execute 8
-			   break;
-			case 9:
-			   execute 9
-			   break;
-		}
-	}
-*/
-	
 	/**
  	* Creates an obstacle. Called by g_createObstacleInterval.
  	*/
@@ -229,15 +171,17 @@
 	/**
  	* Determines randomly (if 0 then devil, if 1,2 then pillar) which obstacle to instantiate.
  	*/
-	if (Math.round(Math.random()*1.5) == 0) d = new obstacle("devil",-7);
-	else d = new obstacle("pillar",-5);
+ 	var n = Math.round(Math.random()*13);
+	if (n < 1) d = new obstacle("powerup",-8);
+	else if (n < 9) d = new obstacle("pillar",-5);
+	else d = new obstacle("devil",-7);
 	
 	// Instantiates new Obstacle
 	g_obstacle.push(d);
 	
 	// Resets the interval for the next obstacle creation. This is so that obstacles appear randomly
 	clearInterval(g_createObstacleInterval); 
-	var x = Math.round(Math.random() * 1000) + 800 - ((g_levelDirector.myCurrentLevel) * 100); 
+	var x = Math.round(Math.random() * 1000) + 1000 - ((g_levelDirector.myCurrentLevel) * 100); 
 	g_createObstacleInterval = setInterval(createObstacle, x);
 	}  
 	
@@ -257,7 +201,7 @@
             src="Images/sky.png">
             
     <img    id="fuzzle"
-            src="Images/freshfuzzle2.png">
+            src="Images/fuzzle.png">
 
     <img    id="powerup"
             src="Images/mysterybox.png">
@@ -334,9 +278,9 @@
     <img    id="pause"
             src="Images/pause.png">
             
-    <audio  id="nyan_cat" 
-            src="Audio/Fresh_Prince_of_Bel_air.ogg"
-            autobuffer='true'>
+    <audio  id="background_loop" 
+            src="Audio/Background_music.ogg"
+            >
     </audio>
             
 	 </div>
