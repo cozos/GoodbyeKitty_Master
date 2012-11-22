@@ -14,8 +14,8 @@ function Alliance(element, position, total){
 	this.total = total;
 	this.type = element;
 	this.phase = position/total*2*3.14;
-	this.posx = 20;
-	this.posy = 20;	
+	this.posx = 0;
+	this.posy = 0;	
 }
 
 /**

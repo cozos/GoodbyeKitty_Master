@@ -68,6 +68,6 @@ HUD.prototype.render = function(){
 		var seconds = Math.floor(remainingminutes/10);
 		var minutes = Math.floor(remaininghours / 600);
 		var hours = Math.floor(g_levelDirector.myClock/36000);
-		g_context.fillText(hours + ":" + minutes + ":" + seconds,g_canvas.width/2,0.025 * g_canvas.height);
+		g_context.fillText("Score: " + hours + ":" + minutes + ":" + seconds,g_canvas.width/2,0.025 * g_canvas.height);
 
 	}
