@@ -64,23 +64,7 @@ function mouseDown()
 		g_background.render();
 		g_button = new Button("gamebackdown");
 		g_button.render();
-
-		var remaininghours = totalPlayTime%36000
-		var remainingminutes = remaininghours % 600
-		var remainingseconds = remainingminutes/10;
-		var seconds = Math.floor(remainingminutes/10);
-		var minutes = Math.floor(remaininghours / 600);
-		var hours = Math.floor(totalPlayTime/36000);
-
-            g_context.fillStyle = "black";
-	    g_context.font="20px Comic Sans MS";
-            g_context.fillText("Best score : " + bestScore,0.75*g_canvas.width,0.35*g_canvas.height);
-            g_context.fillText("Worst score : " + worstScore,0.65*g_canvas.width,0.40*g_canvas.height);
-            g_context.fillText("Total Play Time : " + hours + " HRS " + minutes + " MINS " + seconds + " SECS ",0.15*g_canvas.width,0.45*g_canvas.height);
-            g_context.fillText("Total Play : " + totalPlay,0.50*g_canvas.width,0.50*g_canvas.height);
-            g_context.fillText("Total Number of Hearts Collected : " + totalHeartsCollected,0.35*g_canvas.width,0.55*g_canvas.height);
-            g_context.fillText("Total Number of Powerups Collected : " + totalPowerupsCollected,0.25*g_canvas.width,0.60*g_canvas.height);
-            g_context.fillText("Total Number of Death : " + totalDeath,0.55*g_canvas.width,0.70*g_canvas.height);
+		g_NumberPrinter.render();
 
 		setTimeout(gotoMainMenu,100);
 		}
