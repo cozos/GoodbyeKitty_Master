@@ -19,6 +19,7 @@
 	<script type="text/javascript" src='js/AngelAlliance.js'></script>
 	<script type="text/javascript" src='js/Collision.js'></script>
   	<script type="text/javascript" src='js/HUD.js'></script>
+  	<script type="text/javascript" src='js/Number.js'></script>
 	<script type="text/javascript">
 
 	//Window variables
@@ -35,28 +36,16 @@
 	var g_context;
 	var g_button;
 	var g_HUD;
+	var g_NumberPrinter;
 
 	//Fuzzle
 	var g_fuzzle;
-
-	//Powerups
-	var g_powerup;
-	var g_powerupFlag;
-	var g_angelAlliance;
-	var g_angelAllianceFlag;
-
-	//Collision flags (debug purpose)
-	var g_fuzzleCollisionFlag = false;
-	var g_obstacleCollisionFlag = false;
-	var g_powerupCollisionFlag = false;
-	var g_angelAllianceCollisionFlag = false;
 
 	//Intervals
 	var g_renderInterval;
 	var g_clockInterval;
 	var g_inputInterval;
 	var g_createObstacleInterval;
-	var gametimer;
 	
 	//Object arrays
 	var g_trail = [];
@@ -68,8 +57,10 @@
 	var g_mouseDown = false;
 	var g_mouseX = [];
 	var g_mouseY = [];
+	var g_touchX = [];
+	var g_touchY = [];
 	var len = 0;
-	var g_pauseKeyPressed = true;
+	var g_pauseKeyPressed = false;
 
 	//Background Level Manager (level increases when timer is a multiple of transition, function will be called in Repaint)
 	var g_levelDirector;
@@ -105,7 +96,12 @@
 		document.addEventListener('mousedown', mouseDown, false);
 		document.addEventListener('mouseup', mouseUp, false);
 		document.addEventListener('mousemove', mouseXY, false);
-		g_audioLoop = document.getElementById("nyan_cat");
+		document.addEventListener("touchstart", touchDown, false);
+		document.addEventListener("touchend", touchUp, false);
+		document.addEventListener("touchmove", touchXY, false);
+		document.body.addEventListener("touchcancel", touchUp, false);
+
+		g_audioLoop = document.getElementById("background_loop");
 		g_audioLoop.volume = 0;
 
 	}
@@ -139,9 +135,9 @@
 	// introduce enemy
 	renderArray(g_obstacle);
 	renderArray(g_alliance);
-
-	g_HUD.render();
 	renderHUD();
+	g_HUD.render();
+	g_NumberPrinter.render();
 	collision_singleVSarray(g_fuzzle,g_obstacle,1);
 	}
 
@@ -158,6 +154,11 @@
 				g_audioLoop.pause();
 				g_levelDirector.gameOver();
 			}
+			if (g_fuzzle.health >= 9)
+			{
+				g_fuzzle.lives += 1;
+				g_fuzzle.health -= 9;
+			}
 		}
 	}
 
@@ -172,16 +173,17 @@
  	* Determines randomly (if 0 then devil, if 1,2 then pillar) which obstacle to instantiate.
  	*/
  	var n = Math.round(Math.random()*13);
-	if (n < 1) d = new obstacle("powerup",-13);
-	else if (n < 9) d = new obstacle("pillar",-9);
-	else d = new obstacle("devil",-12);
+	if (n < 1) d = new obstacle("powerup",-8);
+	else if (n < 2) d = new obstacle("health",-6);
+	else if (n < 9) d = new obstacle("pillar",-5);
+	else d = new obstacle("devil",-7);
 	
 	// Instantiates new Obstacle
 	g_obstacle.push(d);
 	
 	// Resets the interval for the next obstacle creation. This is so that obstacles appear randomly
 	clearInterval(g_createObstacleInterval); 
-	var x = Math.round(Math.random() * 1000) + 1000 - ((g_levelDirector.myCurrentLevel) * 100); 
+	var x = Math.round(Math.random() * 1000) + 1500 - ((g_levelDirector.myCurrentLevel) * 450); 
 	g_createObstacleInterval = setInterval(createObstacle, x);
 	}  
 	
@@ -220,6 +222,9 @@
             
     <img    id="pillar"
             src="Images/pillar.png">
+
+    <img    id="health"
+            src="Images/heart.png">
 
     <img    id="gamemainmenu"
             src="Images/gamemainmenu.png">
@@ -275,8 +280,41 @@
     <img    id="HUDminiheart_grey"
             src="Images/HUDminiheart_grey.png">
 
-    <img    id="pause"
-            src="Images/pause.png">
+    <img    id="pausescreen"
+            src="Images/pausescreen.png">
+
+    <img    id="zero"
+            src="Images/0.png">	
+
+    <img    id="one"
+            src="Images/1.png">	
+
+    <img    id="two"
+            src="Images/2.png">	
+
+    <img    id="three"
+            src="Images/3.png">	
+
+    <img    id="four"
+            src="Images/4.png">	
+
+    <img    id="five"
+            src="Images/5.png">	
+
+    <img    id="six"
+            src="Images/6.png">	
+
+    <img    id="seven"
+            src="Images/7.png">	
+
+    <img    id="eight"
+            src="Images/8.png">	
+
+    <img    id="nine"
+            src="Images/9.png">	
+
+    <img    id="colon"
+            src="Images/colon.png">	
             
     <audio  id="background_loop" 
             src="Audio/Background_music.ogg"

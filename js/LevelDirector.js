@@ -6,13 +6,8 @@
 
 function LevelDirector()
 {
-   this.myCurrentLevel = 1;
-   this.myCurrentWave = 0;
+   this.myCurrentLevel = 0;
    this.myClock = 0;
-   this.myGameOverClock = 0;
-
-   this.myEOLLives = 2;
-   this.myEOLScore = 0;
 }
 
 LevelDirector.prototype.mainMenu = function()
@@ -28,11 +23,18 @@ LevelDirector.prototype.showStatistics = function()
 	g_button = new Button("gamebackup");
 	g_button.render();
 
+		var remaininghours = totalPlayTime%36000
+		var remainingminutes = remaininghours % 600
+		var remainingseconds = remainingminutes/10;
+		var seconds = Math.floor(remainingminutes/10);
+		var minutes = Math.floor(remaininghours / 600);
+		var hours = Math.floor(totalPlayTime/36000);
+
             g_context.fillStyle = "black";
 	    g_context.font="20px Comic Sans MS";
             g_context.fillText("Best score : " + bestScore,0.75*g_canvas.width,0.35*g_canvas.height);
             g_context.fillText("Worst score : " + worstScore,0.65*g_canvas.width,0.40*g_canvas.height);
-            g_context.fillText("Total Play Time : " + totalPlayTime,0.55*g_canvas.width,0.45*g_canvas.height);
+            g_context.fillText("Total Play Time : " + hours + " HRS " + minutes + " MINS " + seconds + " SECS ",0.15*g_canvas.width,0.45*g_canvas.height);
             g_context.fillText("Total Play : " + totalPlay,0.50*g_canvas.width,0.50*g_canvas.height);
             g_context.fillText("Total Number of Hearts Collected : " + totalHeartsCollected,0.35*g_canvas.width,0.55*g_canvas.height);
             g_context.fillText("Total Number of Powerups Collected : " + totalPowerupsCollected,0.25*g_canvas.width,0.60*g_canvas.height);
@@ -52,16 +54,15 @@ LevelDirector.prototype.showInstructions = function()
 
 LevelDirector.prototype.startLevel = function()
 {
-   if ( this.myCurrentLevel == 1 )
+   if ( this.myCurrentLevel == 0 )
    {
       g_background = new Background("sky", 5);
       g_foreground = new Background("cloud", 8);
       g_fuzzle = new fuzzle();
       g_HUD = new HUD();
+      g_NumberPrinter = new NumberPrinter();
 
       g_gameState = "inlevel";
-      
-      g_audioLoop = document.getElementById("background_loop");
       g_audioLoop.loop = true;
       g_audioLoop.volume = 1;
       g_audioLoop.play();
@@ -82,7 +83,6 @@ LevelDirector.prototype.gameOver = function()
 	clearInterval(g_clockInterval);
 	clearInterval(g_createObstacleInterval);
 
-	g_context.clearRect(0,0,g_canvas.width,g_canvas.height);
 	g_background = new Background("gameover",0);
 	g_background.render();
 	g_button = new Button("gamereplayup");
@@ -95,9 +95,9 @@ LevelDirector.prototype.gameOver = function()
 
 	if (firstTimePlay == true)
 	{
-		bestScore = Math.round(g_levelDirector.myClock);
+		bestScore = g_fuzzle.score;
 		// show best score
-		worstScore = Math.round(g_levelDirector.myClock);
+		worstScore = g_fuzzle.score;
 		totalPlayTime = Math.round(g_levelDirector.myClock);
 		totalPlay = playCounter;
 		totalHeartsCollected = heartsCollectedCounter;
@@ -106,15 +106,15 @@ LevelDirector.prototype.gameOver = function()
 		firstTimePlay = false;
 	} else
 	{
-		if (Math.round(g_levelDirector.myClock) > bestScore)
+		if (g_fuzzle.score > bestScore)
 		{
-			bestScore = Math.round(g_levelDirector.myClock);
+			bestScore = g_fuzzle.score;
 			// show best score
 		}
 		else {bestScore = bestScore;}
-		if (Math.round(g_levelDirector.myClock) < worstScore)
+		if (g_fuzzle.score < worstScore)
 		{
-			worstScore = Math.round(g_levelDirector.myClock);
+			worstScore = g_fuzzle.score;
 		}
 		else {worstScore = worstScore;}
 		totalPlayTime += Math.round(g_levelDirector.myClock);
@@ -159,7 +159,21 @@ function rendermainmenu()
 	g_button.render();
 	g_button = new Button("gameinstructup");
 	g_button.render();
+
+	if (	navigator.userAgent.match(/Android/i) ||
+		navigator.userAgent.match(/webOS/i) ||
+		navigator.userAgent.match(/iPhone/i) ||
+		navigator.userAgent.match(/iPod/i) )
+	{
+	var pauseScreen = document.getElementById("pausescreen");
+	g_context.drawImage(pauseScreen, 0, 0, g_canvas.width, g_canvas.height/2);
+	} else 
+	{
+	var pauseScreen = document.getElementById("pausescreen");
+	g_context.drawImage(pauseScreen, 0, 0, g_canvas.width/2, g_canvas.height);
+	}
 }
+
 
 /* -------------------- Pause Loop ------------------- */
 function pause()
@@ -168,36 +182,21 @@ function pause()
 	{
 		g_gameState = "paused";
 		g_paused = true;
+		g_audioLoop.pause();
 		clearInterval(g_renderInterval);
 		clearInterval(g_clockInterval);
 		clearInterval(g_createObstacleInterval);
 
-	var pauseScreen = document.getElementById("gamemainmenu");
+	var pauseScreen = document.getElementById("pausescreen");
 	g_context.drawImage(pauseScreen, 0, 0, g_canvas.width, g_canvas.height);
 	}
 	else
 	{
-		g_gameState = "inlevel";
 		g_paused = false;
-		renderLoop();
-
-		g_context.fillStyle = "red";
-		g_context.font="60px Comic Sans MS";
-		g_context.fillText("3",0.45*g_canvas.width,0.5*g_canvas.height); 
-		setTimeout(rendercountdown2,1000);
+		gobacktoGame();
+		g_audioLoop.play();
+		g_gameState = "inlevel";
 	}
-}
-
-function rendercountdown2()
-{
-	g_context.fillText("2",0.5*g_canvas.width,0.5*g_canvas.height);
-	setTimeout(rendercountdown1,1000);
-}
-
-function rendercountdown1()
-{
-		g_context.fillText("1",0.55*g_canvas.width,0.5*g_canvas.height);
-		setTimeout(gobacktoGame,1000);
 }
 
 function gobacktoGame()
@@ -215,14 +214,14 @@ function clockLoop()
 	if ( g_paused )
 	return;
 
-	var tempLevel = 1;
-	var transition = 100;
+	var transition = 400;
 
 	g_levelDirector.myClock += 1;
 
-	if (g_levelDirector.myCurrentLevel < 3)
+	if (g_levelDirector.myCurrentLevel < 4)
 	{
-	tempLevel = g_levelDirector.myCurrentLevel;
 	g_levelDirector.myCurrentLevel = (g_levelDirector.myClock - (g_levelDirector.myClock % transition)) / transition;
 	}
+
+	g_fuzzle.score += (g_levelDirector.myCurrentLevel+1);
 }

@@ -76,6 +76,8 @@ function keyUp(e)
  */
 function keyboard()
 {
+   if (g_gameState == "inlevel")
+   {
 	if (g_keys[38] == true) //check if up arrow is pressed
 	{
 		// code moved to fuzzle.js, it's neater that way ;P
@@ -86,5 +88,5 @@ function keyboard()
 	{
 		g_fuzzle.collidedpowerup();
 	}
-	
+   }	
 }

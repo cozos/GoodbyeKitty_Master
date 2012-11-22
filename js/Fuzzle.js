@@ -10,6 +10,7 @@ function fuzzle(){
 	
 	//Fuzzle attributes
 	this.lives = 1;
+	this.score = 0;
 	this.health = 0;
 	this.velocity = 0;
 	this.gravity = 1;
@@ -74,7 +75,7 @@ fuzzle.prototype.collidedpowerup = function(){
 fuzzle.prototype.collidedobstacle = function(){
 	
 	if(g_alliance.length == 0){	
-    alert("You died, motherfucker");
+    g_fuzzle.lives -= 1;
     g_keys = [];
     g_mouseDown = false;
 	}

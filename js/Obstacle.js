@@ -9,8 +9,13 @@
 function obstacle(element,velocity){
 	// Image attributes
 	this.ImageFile = document.getElementById(element);
+	if (element == "health" || element == "powerup"){
+	this.width = this.ImageFile.width * g_resize * 0.6;
+	this.height = this.ImageFile.height * g_resize * 0.6;
+	} else if (element == "pillar" || element == "devil"){
 	this.width = this.ImageFile.width * g_resize;
 	this.height = this.ImageFile.height * g_resize;
+	}
 	this.lives = 1;
 	
 	// Obstacle attributes
@@ -67,7 +72,7 @@ obstacle.prototype.render = function(){
 	}
 	
 	// IF OBSTACLE IS OF TYPE PILLAR
-	else if (this.type == "pillar"){
+	else if (this.type == "pillar" || this.type == "health"){
 		//nothing?
 	}
 	
@@ -86,7 +91,10 @@ obstacle.prototype.render = function(){
 obstacle.prototype.collided = function(){
 	this.posx = -300;
 	if (this.type == "powerup"){	
-		 	return true;
+		 	return 1;
+	}
+	else if (this.type == "health"){
+			return 2;
 	}
 	else{
 		return false;

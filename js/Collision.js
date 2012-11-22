@@ -1,28 +1,3 @@
-// Check for collisions
-/*function collision()
-{
-	if (collision_singleVSarray(g_fuzzle,g_obstacle,1))
-	{
-//		g_fuzzle.lives -= 1;
-	}
-	if (g_powerupFlag == 1)
-	{
-		if(collision_singleVSsingle(g_fuzzle,g_powerup,1))
-		{
-			g_angelAllianceFlag = 1;
-		}
-	}
-	if (g_angelAllianceFlag == 1)
-	{
-	if(collision_singleVSarray(g_angelAlliance,g_obstacle,0))
-		{
-			g_obstacle.posx -= 100;
-			g_angelAlliance.posx -= 100;
-			g_angelAllianceFlag = 0;
-		}
-	}
-}
-*/
 /*
  * Checks if a singular object collides with a singular object
  */
@@ -90,9 +65,20 @@ function collision_arrayVSarray(array, array){
  		if ( (((lower_x_1 > lower_x_2) && (lower_x_1 < upper_x_2)) || ((upper_x_1 > lower_x_2) && (upper_x_1 < upper_x_2))) &&
  			 (((lower_y_1 > lower_y_2) && (lower_y_1 < upper_y_2)) || ((upper_y_1 > lower_y_2) && (upper_y_1 < upper_y_2)))){
  			
- 			var power = object2.collided();
- 			if(power) object1.collidedpowerup();
- 			else object1.collidedobstacle();
+ 			var powerorhealth = object2.collided();
+ 			if(powerorhealth == 1){
+				object1.collidedpowerup();
+				powerupsCollectedCounter++;
+			}
+			else if (powerorhealth == 2){
+				g_fuzzle.health += 1;
+				heartsCollectedCounter++;
+			}
+ 			else 
+			{
+				object1.collidedobstacle();
+				deathCounter++;
+			}
  			
 		}
  	}

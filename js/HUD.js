@@ -5,8 +5,8 @@
 function HUD(){
 	//Hearts Store attributes
 	this.heartstorage = document.getElementById("HUDhearts_mine");
-	this.HSwidth = this.heartstorage.width * g_resize;
-	this.HSheight = this.heartstorage.height * g_resize;
+	this.HSwidth = this.heartstorage.width * 1.5 * g_resize;
+	this.HSheight = this.heartstorage.height * 1.5 * g_resize;
 
 	//Mini Hearts attributes
 	this.miniheart_grey = document.getElementById("HUDminiheart_grey");
@@ -24,8 +24,8 @@ function HUD(){
  */
 HUD.prototype.render = function(){
 
-	var radiusX = 0.045*g_canvas.height;
-	var radiusY = 0.042*g_canvas.height;
+	var radiusX = 0.06*g_canvas.height;
+	var radiusY = 0.056*g_canvas.height;
 	var originX = 0.95*g_canvas.width;
 	var originY = 0.07*g_canvas.height;
 	var posX = 0.95*g_canvas.width - 0.5*this.MHwidth;
@@ -60,14 +60,16 @@ HUD.prototype.render = function(){
 	{
             g_context.fillStyle = "black";
 	    g_context.font="26px Comic Sans MS";
-            g_context.fillText(g_fuzzle.lives,0.945*g_canvas.width,0.083*g_canvas.height);
 
 		var remaininghours = g_levelDirector.myClock%36000
 		var remainingminutes = remaininghours % 600
-		var remainingseconds = 0;
+		var remainingseconds = remainingminutes/10;
 		var seconds = Math.floor(remainingminutes/10);
 		var minutes = Math.floor(remaininghours / 600);
 		var hours = Math.floor(g_levelDirector.myClock/36000);
-		g_context.fillText("Score: " + hours + ":" + minutes + ":" + seconds,g_canvas.width/2,0.025 * g_canvas.height);
+		/*g_context.fillText(g_levelDirector.myClock,g_canvas.width/2,0.025 * g_canvas.height);
+		g_context.beginPath();
+		g_context.arc(0.95*g_canvas.width,0.07*g_canvas.height,0.056*g_canvas.height,0,2*Math.PI);
+		g_context.stroke();*/
 
 	}
