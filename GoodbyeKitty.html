@@ -151,6 +151,8 @@
 		{
 			if (g_fuzzle.lives <= 0)
 			{
+				g_alliance = [];
+				g_obstacle = [];
 				g_audioLoop.pause();
 				g_levelDirector.gameOver();
 			}
@@ -173,10 +175,10 @@
  	* Determines randomly (if 0 then devil, if 1,2 then pillar) which obstacle to instantiate.
  	*/
  	var n = Math.round(Math.random()*13);
-	if (n < 1) d = new obstacle("powerup",-8);
-	else if (n < 2) d = new obstacle("health",-6);
-	else if (n < 9) d = new obstacle("pillar",-5);
-	else d = new obstacle("devil",-7);
+	if (n < 1) d = new obstacle("powerup",-16);
+	else if (n < 2) d = new obstacle("health",-12);
+	else if (n < 9) d = new obstacle("pillar",-10);
+	else d = new obstacle("devil",-14);
 	
 	// Instantiates new Obstacle
 	g_obstacle.push(d);

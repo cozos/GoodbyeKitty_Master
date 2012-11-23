@@ -24,11 +24,11 @@ function Alliance(element, position, total){
 Alliance.prototype.render = function(){
 	var x = g_fuzzle.posx + (0.5 * g_fuzzle.width) + 100 * Math.sin(0.2*g_levelDirector.myClock + this.phase) - (0.8 * this.width);
 	var y = g_fuzzle.posy + (0.5 * g_fuzzle.height) + 100 * Math.cos(0.2*g_levelDirector.myClock+ this.phase) - (0.5 * this.height);
-	if(Math.abs(this.posx - x) < 5 && Math.abs(this.posy - y) < 5) this.state = 0;
+	if(Math.abs(this.posx - x) < g_fuzzle.width * 0.5 && Math.abs(this.posy - y) < g_fuzzle.width * 0.5) this.state = 1;
 	
 	if(this.state == 0){
-		this.posx = this.posx + (x - this.posx)/2;
-		this.posy = this.posy + (y - this.posy)/2;
+		this.posx = this.posx + (x - this.posx)/30;
+		this.posy = this.posy + (y - this.posy)/30;
 	}
 	
 	if(this.state == 1){

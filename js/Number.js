@@ -11,8 +11,8 @@
 		var hours = Math.floor(remainingdays/36000);
 		var days = Math.floor(totalPlayTime/864000);
 	if (g_gameState == "inlevel")
-	{	printNumberIntoStringAsImages(g_levelDirector.myClock,0.50*g_canvas.width,0.05*g_canvas.height,0.35,false,false);
-	printNumberIntoStringAsImages(g_fuzzle.score,0.50*g_canvas.width,0.10*g_canvas.height,0.35,false,false);
+	{	printNumberIntoStringAsImages(g_levelDirector.myClock,0.50*g_canvas.width,0.01*g_canvas.height,0.35,false,false);
+	//printNumberIntoStringAsImages(g_fuzzle.score,0.50*g_canvas.width,0.10*g_canvas.height,0.35,false,false);
 	printNumberIntoStringAsImages(g_fuzzle.lives,0.95*g_canvas.width,0.06*g_canvas.height,0.35,false,false);
 	}
 	else if (g_gameState == "instatistics")

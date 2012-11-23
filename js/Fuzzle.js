@@ -68,7 +68,7 @@ fuzzle.prototype.render = function(){
  * What happens when fuzzle collides into something.
  */
 fuzzle.prototype.collidedpowerup = function(){
-	var a = new Alliance("angelalliance", g_alliance.length*2, 9+g_alliance.length*2);
+	var a = new Alliance("angelalliance", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2);
 	g_alliance.push(a);
 }
 
