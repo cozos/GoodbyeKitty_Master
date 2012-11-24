@@ -82,7 +82,11 @@ function keyboard()
 	{
 		// code moved to fuzzle.js, it's neater that way ;P
 		g_fuzzle.up();
-		
+		g_fuzzle.upPressed = true;
+	}
+	else
+	{
+		g_fuzzle.upPressed = false;
 	}
 	if (g_keys[16] == true) //check if shift is pressed
 	{
