@@ -42,6 +42,9 @@ LevelDirector.prototype.startLevel = function()
    {
       g_background = new Background("sky", 5);
       g_foreground = new Background("cloud", 8);
+      g_alliance = [];
+      g_obstacle = [];
+
       g_fuzzle = new fuzzle();
       g_HUD = new HUD();
       g_NumberPrinter = new NumberPrinter();
@@ -58,23 +61,18 @@ LevelDirector.prototype.startLevel = function()
    g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
 }
 
-LevelDirector.prototype.gameOver = function()
+LevelDirector.prototype.gameOverCutScene = function()
 {
-	g_gameState = "gameover";
+	g_gameState = "gameovercutscene";
 
 	clearInterval(g_inputInterval);
 	clearInterval(g_renderInterval);
 	clearInterval(g_clockInterval);
 	clearInterval(g_createObstacleInterval);
 
-	g_background = new Background("gameover",0);
-	g_background.render();
-	g_button = new Button("gamereplayup");
-	g_button.render();
-	g_button = new Button("gamestatsup");
-	g_button.render();
-	g_button = new Button("gameinstructup");
-	g_button.render();
+	if (g_fuzzle.posy < g_canvas.height)
+	{g_renderInterval = setInterval(renderLoop, 1000/24);}
+
 	playCounter = 1;
 
 	if (firstTimePlay == true)
@@ -107,6 +105,21 @@ LevelDirector.prototype.gameOver = function()
 		totalPowerupsCollected = powerupsCollectedCounter;
 		totalDeath = deathCounter;
 	}
+}
+
+LevelDirector.prototype.gameOver = function()
+{
+	g_gameState = "gameover";
+
+	g_background = new Background("gameover",0);
+	g_background.render();
+	g_button = new Button("gamereplayup");
+	g_button.render();
+	g_button = new Button("gamestatsup");
+	g_button.render();
+	g_button = new Button("gameinstructup");
+	g_button.render();
+
 }
 
 function gotoMainMenu()
