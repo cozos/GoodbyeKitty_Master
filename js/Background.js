@@ -24,7 +24,7 @@ function Background(element,velocity)
  */
 Background.prototype.render = function()
 {
-	if (g_gameState != "inlevel")
+	if (g_gameState != "inlevel" && g_gameState != "gameovercutscene")
 	{
 		if (this.myWidth != g_canvas.width || this.myHeight != g_canvas.height)
 		{
@@ -65,5 +65,14 @@ Background.prototype.render = function()
                        this.myWidth, this.myHeight);
    this.myX1 -= (this.myVelocity * scrollRate);
    this.myX2 -= (this.myVelocity * scrollRate);
+	}
+	else if (g_gameState == "gameovercutscene")
+	{
+   g_context.drawImage(this.BackgroundImage,
+                       this.myX1, 0,
+                       this.myWidth, this.myHeight);
+   g_context.drawImage(this.BackgroundImage,
+                       this.myX2, 0,
+                       this.myWidth, this.myHeight);
 	}
 }
