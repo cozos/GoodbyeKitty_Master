@@ -33,6 +33,8 @@ HUD.prototype.render = function(){
 	var i = 1;
 	var health = 1;
 
+	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene")
+	{
 	g_context.drawImage(this.heartstorage, originX - 0.5*this.HSwidth, originY - 0.5*this.HSheight, this.HSwidth, this.HSheight);
 
 	while(i <= 9)
@@ -53,6 +55,7 @@ HUD.prototype.render = function(){
 	
 	g_context.drawImage(this.miniheart_red, posX - radiusX * diffXR, posY - radiusY * diffYR, this.MHwidth, this.MHheight);
 	health++;
+	}
 	}
 }
 
