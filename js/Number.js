@@ -2,7 +2,14 @@
 
 	//D attributes	this.d = document.getElementById("D");	this.dwidth = this.d.width * g_resize;	this.dheight = this.d.height * g_resize;
 
-	//M attributes	this.m = document.getElementById("M");	this.mwidth = this.m.width * g_resize;	this.mheight = this.m.height * g_resize;	//S attributes	this.s = document.getElementById("S");	this.swidth = this.s.width * g_resize;	this.sheight = this.s.height * g_resize;}/** * Renders the numbers as images. */NumberPrinter.prototype.render = function(){            g_context.fillStyle = "black";	    g_context.font="15pt Comic Sans MS";		var remainingdays = totalPlayTime%864000;
+	//M attributes	this.m = document.getElementById("M");	this.mwidth = this.m.width * g_resize;	this.mheight = this.m.height * g_resize;	//S attributes	this.s = document.getElementById("S");	this.swidth = this.s.width * g_resize;	this.sheight = this.s.height * g_resize;}/** * Renders the numbers as images. */NumberPrinter.prototype.render = function(){            g_context.fillStyle = "black";	    g_context.font="15pt Comic Sans MS";	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene")
+	{
+	printNumberIntoStringAsImages(g_fuzzle.score,0.50*g_canvas.width,0.10*g_canvas.height,0.35,false,false);
+	printNumberIntoStringAsImages(g_fuzzle.lives,0.95*g_canvas.width,0.06*g_canvas.height,0.35,false,false);
+	}
+	else if (g_gameState == "instatistics")
+	{
+		var remainingdays = totalPlayTime%864000;
 		var remaininghours = remainingdays%36000;
 		var remainingminutes = remaininghours % 600;
 		var remainingseconds = remainingminutes/10;
@@ -10,13 +17,7 @@
 		var minutes = Math.floor(remaininghours / 600);
 		var hours = Math.floor(remainingdays/36000);
 		var days = Math.floor(totalPlayTime/864000);
-	if (g_gameState == "inlevel")
-	{	printNumberIntoStringAsImages(g_levelDirector.myClock,0.50*g_canvas.width,0.01*g_canvas.height,0.35,false,false);
-	//printNumberIntoStringAsImages(g_fuzzle.score,0.50*g_canvas.width,0.10*g_canvas.height,0.35,false,false);
-	printNumberIntoStringAsImages(g_fuzzle.lives,0.95*g_canvas.width,0.06*g_canvas.height,0.35,false,false);
-	}
-	else if (g_gameState == "instatistics")
-	{
+
 	printNumberIntoStringAsImages(bestScore,0.14*g_canvas.width,0.35*g_canvas.height,0.35,false,false);
 	printNumberIntoStringAsImages(worstScore,0.45*g_canvas.width,0.35*g_canvas.height,0.35,false,false);
 	printNumberIntoStringAsImages(days,0.68*g_canvas.width,0.35*g_canvas.height,0.35,false,false);
@@ -39,6 +40,6 @@
 	}
 	}	// Cycle through each number and print them at the respective places	for (var counter = length; counter >= 0; counter--)	{	var n = str.charAt(counter);		if (n == '0')		{		   g_context.drawImage(g_NumberPrinter.zero, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.zerowidth * ratio, printY, g_NumberPrinter.zerowidth * ratio, g_NumberPrinter.zeroheight * ratio);		   imageWidth -= g_NumberPrinter.zerowidth * ratio;		} 		else if (n == '1')		{		   g_context.drawImage(g_NumberPrinter.one, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.onewidth * ratio, printY, g_NumberPrinter.onewidth * ratio, g_NumberPrinter.oneheight * ratio);		   imageWidth -= g_NumberPrinter.onewidth * ratio;		} else if (n == '2')		{		   g_context.drawImage(g_NumberPrinter.two, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.twowidth * ratio, printY, g_NumberPrinter.twowidth * ratio, g_NumberPrinter.twoheight * ratio);		   imageWidth -= g_NumberPrinter.twowidth * ratio;		} else if (n == '3')		{		   g_context.drawImage(g_NumberPrinter.three, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.threewidth * ratio, printY, g_NumberPrinter.threewidth * ratio, g_NumberPrinter.threeheight * ratio);		   imageWidth -= g_NumberPrinter.threewidth * ratio;		} else if (n == '4')		{		   g_context.drawImage(g_NumberPrinter.four, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.fourwidth * ratio, printY, g_NumberPrinter.fourwidth * ratio, g_NumberPrinter.fourheight * ratio);		   imageWidth -= g_NumberPrinter.fourwidth * ratio;		} else if (n == '5')		{		   g_context.drawImage(g_NumberPrinter.five, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.fivewidth * ratio, printY, g_NumberPrinter.fivewidth * ratio, g_NumberPrinter.fiveheight * ratio);		   imageWidth -= g_NumberPrinter.fivewidth * ratio;		} else if (n == '6')		{		   g_context.drawImage(g_NumberPrinter.six, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.sixwidth * ratio, printY, g_NumberPrinter.sixwidth * ratio, g_NumberPrinter.sixheight * ratio);		   imageWidth -= g_NumberPrinter.sixwidth * ratio;		} else if (n == '7')		{		   g_context.drawImage(g_NumberPrinter.seven, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.sevenwidth * ratio, printY, g_NumberPrinter.sevenwidth * ratio, g_NumberPrinter.sevenheight * ratio);		   imageWidth -= g_NumberPrinter.sevenwidth * ratio;		} else if (n == '8')		{		   g_context.drawImage(g_NumberPrinter.eight, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.eightwidth * ratio, printY, g_NumberPrinter.eightwidth * ratio, g_NumberPrinter.eightheight * ratio);		   imageWidth -= g_NumberPrinter.eightwidth * ratio;		} else if (n == '9')		{		   g_context.drawImage(g_NumberPrinter.nine, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.ninewidth * ratio, printY, g_NumberPrinter.ninewidth * ratio, g_NumberPrinter.nineheight * ratio);		   imageWidth -= g_NumberPrinter.ninewidth * ratio;		}
 
-		if (limit2 == true && counter != 0)
+		if (limit2 == true && counter == 0 && length == 1)
 		{		   g_context.drawImage(g_NumberPrinter.zero, printX + 0.5*totalWidth + imageWidth - g_NumberPrinter.zerowidth * ratio, printY, g_NumberPrinter.zerowidth * ratio, g_NumberPrinter.zeroheight * ratio);		   imageWidth -= g_NumberPrinter.zerowidth * ratio;		} 	}
 }

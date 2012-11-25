@@ -76,11 +76,17 @@ obstacle.prototype.render = function(){
 		//nothing?
 	}
 	
+	if (g_gameState == "inlevel")
+	{
 	// Update x coordinate of obstacle
-    this.posx += (this.xvelocity * scrollRate);
-  	
+	this.posx += (this.xvelocity * scrollRate);
+	}
+
+	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene")
+	{
   	// Render the image
   	g_context.drawImage(this.ImageFile, this.posx, this.posy, this.width, this.height);
+	}
 }
 
 
