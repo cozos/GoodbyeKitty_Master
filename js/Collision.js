@@ -67,15 +67,28 @@ function collision_arrayVSarray(array, array){
  			if(powerorhealth == 1){
 				object1.collidedpowerup();
 				powerupsCollectedCounter++;
+
+			  	g_fuzzleaudio = document.getElementById("yay");
+			  	g_fuzzleaudio.volume = 1;
+			  	g_fuzzleaudio.play();
 			}
 			else if (powerorhealth == 2){
 				g_fuzzle.health += 1;
 				heartsCollectedCounter++;
+
+			  	g_fuzzleaudio = document.getElementById("woohoo");
+			  	g_fuzzleaudio.volume = 1;
+			  	g_fuzzleaudio.play();
+
 			}
  			else 
 			{
 				object1.collidedobstacle();
 				deathCounter++;
+
+			  	g_fuzzleaudio = document.getElementById("pillarCrumble");
+			  	g_fuzzleaudio.volume = 1;
+			  	g_fuzzleaudio.play();
 			}
  			
 		}

@@ -51,7 +51,7 @@ LevelDirector.prototype.startLevel = function()
 
       g_gameState = "inlevel";
       g_audioLoop.loop = true;
-      g_audioLoop.volume = 1;
+      g_audioLoop.volume = 0.5;
       g_audioLoop.currentTime = 0;
       g_audioLoop.play();
    }
