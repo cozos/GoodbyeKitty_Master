@@ -3,6 +3,8 @@
  * @constructor
  */
 function fuzzle(){
+	this.Hitboxtest = document.getElementById("hitbox");
+	
 	//Image attributes
 	this.ImageFile = document.getElementById("fuzzle");
 	this.width = this.ImageFile.width * g_resize;
@@ -19,10 +21,6 @@ function fuzzle(){
 	this.FuzzleFlying3 = document.getElementById("fuzzle3");
 	this.FF3width = this.FuzzleFlying3.width * g_resize * 0.2;
 	this.FF3height = this.FuzzleFlying3.height * g_resize * 0.2;
-
-	this.FuzzleFlying4 = document.getElementById("fuzzle4");
-	this.FF4width = this.FuzzleFlying4.width * g_resize * 0.2;
-	this.FF4height = this.FuzzleFlying4.height * g_resize * 0.2;
 
 	this.FuzzleFlyingR = document.getElementById("fuzzleRelease");
 	this.FFRwidth = this.FuzzleFlyingR.width * g_resize * 0.2;
@@ -64,7 +62,16 @@ function fuzzle(){
 	this.FD9width = this.FuzzleD9.width * g_resize * 0.2;
 	this.FD9height = this.FuzzleD9.height * g_resize * 0.2;
 
-
+	this.deatharray = [];
+	this.deatharray.push(this.FuzzleD1);
+	this.deatharray.push(this.FuzzleD2);
+	this.deatharray.push(this.FuzzleD3);
+	this.deatharray.push(this.FuzzleD4);
+	this.deatharray.push(this.FuzzleD5);
+	this.deatharray.push(this.FuzzleD6);
+	this.deatharray.push(this.FuzzleD7);
+	this.deatharray.push(this.FuzzleD8);
+	this.deatharray.push(this.FuzzleD9);
 	
 	//Fuzzle attributes
 	this.lives = 1;
@@ -76,6 +83,7 @@ function fuzzle(){
 	this.posy = 0.5 * g_canvas.height;
     this.flag = 0;
 	this.counter = 0;
+	this.counter2 = 0;
 	this.state = 0;
 	this.upPressed = false;
 }
@@ -85,12 +93,33 @@ function fuzzle(){
  */
 fuzzle.prototype.render = function(){
         
+       
+    
+    //Instantiates fuzzle's trail
+    if (this.flag == 0){
+	var t;
+	if(Math.round(Math.random()) == 1){
+     	t = new trail("trail",-22);
+	}
+    else{
+     	t = new trail("trail",-20);
+    }
+    g_trail.push(t);
+    } 
+    this.flag = 0;
+    
+
 	// Updates Fuzzle's velocity and position.
 	this.velocity += this.gravity;
 	this.posy += this.velocity;
 
 	if (g_gameState == "inlevel")
 	{
+		
+	
+  
+	
+		
 		// If player crashes into the floor
 		if ((this.posy + this.height) > g_canvas.height)
 		{
@@ -105,24 +134,17 @@ fuzzle.prototype.render = function(){
 			this.velocity = 0;
 		}
 
-		// Makes the wings flutter
-		if (this.counter == 2)
-		{
-			this.state += 1;
-			if (this.state == 5)
-			{
-				this.state = 0;
-				if (this.upPressed == false)
-				{
-					this.counter = -20;
-				}
-			}
-			if (this.counter >= 0)
-			{
-				this.counter = 0;
+	
+		if(this.upPressed == false){
+			this.state = 0;
+		}
+		else{
+			this.state++;
+			if(this.state > 2){
+				this.state = 1;
 			}
 		}
-		this.counter++;
+		
 	}
 
 	if (this.gravity < 2) this.gravity += 2;
@@ -135,66 +157,32 @@ fuzzle.prototype.render = function(){
 	}
 	else if (this.state == 1)
 	{
-	g_context.drawImage(this.FuzzleFlying1, this.posx, this.posy, this.FF1width, this.FF1height);
+	g_context.drawImage(this.FuzzleFlying2, this.posx, this.posy, this.FF1width, this.FF1height);
 	}
 	else if (this.state == 2)
 	{
-	g_context.drawImage(this.FuzzleFlying2, this.posx, this.posy, this.FF2width, this.FF2height);
+	g_context.drawImage(this.FuzzleFlying3, this.posx, this.posy, this.FF2width, this.FF2height);
 	}
-	else if (this.state == 3)
-	{
-	g_context.drawImage(this.FuzzleFlying3, this.posx, this.posy, this.FF3width, this.FF3height);
+	
+	if (this.state == 3){
+		g_context.drawImage(this.deatharray[this.counter], this.posx, this.posy, this.deatharray[this.counter].width * g_resize * 0.2, this.deatharray[this.counter].height * g_resize * 0.2);
+		if(this.counter < 8){
+		this.counter++;	
+		}
 	}
-	else if (this.state == 4)
-	{
-	g_context.drawImage(this.FuzzleFlying4, this.posx, this.posy, this.FF4width, this.FF4height);
-	}
-	else if (this.state == 5)
-	{
-	g_context.drawImage(this.FuzzleD1, this.posx, this.posy, this.FD1width, this.FD1height);
-	}
-	else if (this.state == 6)
-	{
-	g_context.drawImage(this.FuzzleD2, this.posx, this.posy, this.FD2width, this.FD2height);
-	}
-	else if (this.state == 7)
-	{
-	g_context.drawImage(this.FuzzleD3, this.posx, this.posy, this.FD3width, this.FD3height);
-	}
-	else if (this.state == 8)
-	{
-	g_context.drawImage(this.FuzzleD4, this.posx, this.posy, this.FD4width, this.FD4height);
-	}
-	else if (this.state == 9)
-	{
-	g_context.drawImage(this.FuzzleD5, this.posx, this.posy, this.FD5width, this.FD5height);
-	}
-	else if (this.state == 10)
-	{
-	g_context.drawImage(this.FuzzleD6, this.posx, this.posy, this.FD6width, this.FD6height);
-	}
-	else if (this.state == 11)
-	{
-	g_context.drawImage(this.FuzzleD7, this.posx, this.posy, this.FD7width, this.FD7height);
-	}
-	else if (this.state == 12)
-	{
-	g_context.drawImage(this.FuzzleD8, this.posx, this.posy, this.FD8width, this.FD8height);
-	}
-	else if (this.state == 13)
-	{
-	g_context.drawImage(this.FuzzleD9, this.posx, this.posy, this.FD9width, this.FD9height);
-	}
+	
+	
+
 
 	if (g_gameState == "gameovercutscene")
 	{
-		if (this.state < 12)
-		{
-			this.state++;
-		}
+		
+		
+		this.state = 3;
 
 		if (g_fuzzle.posy > g_canvas.height)
-		{
+		{	
+		
 			clearInterval(g_renderInterval);
 			g_levelDirector = new LevelDirector();
 			g_levelDirector.gameOver();
@@ -227,6 +215,16 @@ fuzzle.prototype.collidedobstacle = function(){
 * Makes Fuzzle go up.
 */  
 fuzzle.prototype.up = function(){
+    
+    this.flag = 1;
+    var t;
+	if(Math.round(Math.random()) == 1){
+     	t = new trail("firetrail",-22);
+	}
+    else{
+     	t = new trail("firetrail",-22);
+    }
+    g_trail.push(t);
     
     // Going up is a pain in the ass without this
     if (this.velocity > 0){

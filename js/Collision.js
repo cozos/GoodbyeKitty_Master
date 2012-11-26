@@ -49,10 +49,16 @@ function collision_arrayVSarray(array, array){
  		var upper_y_2 = object2.posy + object2.height;
  		
  		// Adjusts hitbox for fuzzle
- 		upper_x_1 += -0.08 * g_canvas.width;
-		lower_y_1 += 0.06 * g_canvas.height;	
-		upper_y_1 += -0.1 * g_canvas.height;
-
+ 		lower_x_1 += 0.02 * g_canvas.width
+ 		upper_x_1 += -0.07 * g_canvas.width;
+		lower_y_1 += 0.04 * g_canvas.height;	
+		upper_y_1 += -0.03 * g_canvas.height;
+		
+		/*g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, lower_y_1);
+		g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, upper_y_1);
+		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, lower_y_1);
+		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, upper_y_1);*/
+		
  		// If the objects intersect, call collide.
  		if ( (((lower_x_1 > lower_x_2) && (lower_x_1 < upper_x_2)) || ((upper_x_1 > lower_x_2) && (upper_x_1 < upper_x_2))) &&
  			 (((lower_y_1 > lower_y_2) && (lower_y_1 < upper_y_2)) || ((upper_y_1 > lower_y_2) && (upper_y_1 < upper_y_2)))){

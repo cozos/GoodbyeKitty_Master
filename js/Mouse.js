@@ -138,6 +138,7 @@ function mouseDown()
 function mouseUp()
 {
 	g_mouseDown = false;
+	g_fuzzle.upPressed = false;
 }
 
 function mouse()
@@ -145,6 +146,10 @@ function mouse()
 	if (g_mouseDown == true) //check if mouse is pressed
 	{
 		g_fuzzle.up();	
+		g_fuzzle.upPressed = true;
+	}
+	else{
+		
 	}
 }
 

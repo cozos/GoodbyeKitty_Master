@@ -69,7 +69,7 @@
 
 	//Audio manager
 	var g_audioLoop;
-
+	var g_fuzzleaudio;
 	//Scores
 	var bestScore = 0;
 	var worstScore = 0;
@@ -151,6 +151,10 @@
 		{
 			if (g_fuzzle.lives <= 0)
 			{
+			
+		  	g_fuzzleaudio = document.getElementById("ow");
+     	  	g_fuzzleaudio.volume = 1;
+    	  	g_fuzzleaudio.play();
 				g_audioLoop.pause();
 				g_levelDirector.gameOverCutScene();
 			}
@@ -204,7 +208,7 @@
             
     <img    id="fuzzle"
             src="Images/fuzzle.png">
-
+	
     <img    id="fuzzle1"
             src="Images/character flying_wings1.png">
     <img    id="fuzzle2"
@@ -234,6 +238,9 @@
             src="Images/character_dead8.png">
     <img    id="fuzzledead9"
             src="Images/character_dead9.png">
+            
+    <img id="hitbox"
+    	 src="Images\Hitbox_Test.png">
 
     <img    id="powerup"
             src="Images/mysterybox.png">
@@ -357,6 +364,11 @@
             
     <audio  id="background_loop" 
             src="Audio/Background_music.ogg"
+            >
+    </audio>
+              
+    <audio  id="ow" 
+            src="Audio/Ow.ogg"
             >
     </audio>
             

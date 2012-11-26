@@ -110,7 +110,6 @@ LevelDirector.prototype.gameOverCutScene = function()
 LevelDirector.prototype.gameOver = function()
 {
 	g_gameState = "gameover";
-
 	g_background = new Background("gameover",0);
 	g_background.render();
 	g_button = new Button("gamereplayup");
