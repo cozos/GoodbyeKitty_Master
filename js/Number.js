@@ -18,20 +18,20 @@
 		var hours = Math.floor(remainingdays/36000);
 		var days = Math.floor(totalPlayTime/864000);
 
-	printNumberIntoStringAsImages(bestScore,0.14*g_canvas.width,0.35*g_canvas.height,0.35,false,false);
-	printNumberIntoStringAsImages(worstScore,0.45*g_canvas.width,0.35*g_canvas.height,0.35,false,false);
-	printNumberIntoStringAsImages(days,0.68*g_canvas.width,0.35*g_canvas.height,0.35,false,false);
-	g_context.drawImage(this.d, 0.70*g_canvas.width, 0.35*g_canvas.height, this.dwidth * 0.35, this.dheight * 0.35);
-	printNumberIntoStringAsImages(hours,0.763*g_canvas.width,0.35*g_canvas.height,0.35,true,true);
-	g_context.drawImage(this.h, 0.773*g_canvas.width, 0.35*g_canvas.height, this.hwidth * 0.35, this.hheight * 0.35);
-	printNumberIntoStringAsImages(minutes,0.836*g_canvas.width,0.35*g_canvas.height,0.35,true,true);
-	g_context.drawImage(this.m, 0.846*g_canvas.width, 0.35*g_canvas.height, this.mwidth * 0.35, this.mheight * 0.35);
-	printNumberIntoStringAsImages(seconds,0.915*g_canvas.width,0.35*g_canvas.height,0.35,true,true);
-	g_context.drawImage(this.s, 0.925*g_canvas.width, 0.35*g_canvas.height, this.swidth * 0.35, this.sheight * 0.35);
-	printNumberIntoStringAsImages(totalPlay,0.14*g_canvas.width,0.58*g_canvas.height,0.35,false,false);
-	printNumberIntoStringAsImages(totalHeartsCollected,0.45*g_canvas.width,0.58*g_canvas.height,0.35,false,false);
-	printNumberIntoStringAsImages(totalPowerupsCollected,0.8*g_canvas.width,0.58*g_canvas.height,0.35,false,false);
-	printNumberIntoStringAsImages(totalDeath,0.73*g_canvas.width,0.80*g_canvas.height,0.35,false,false);
+	printNumberIntoStringAsImages(bestScore,0.14*g_canvas.width,0.3*g_canvas.height,0.35,false,false);
+	printNumberIntoStringAsImages(worstScore,0.45*g_canvas.width,0.3*g_canvas.height,0.35,false,false);
+	printNumberIntoStringAsImages(days,0.68*g_canvas.width,0.3*g_canvas.height,0.35,false,false);
+	g_context.drawImage(this.d, 0.70*g_canvas.width, 0.3*g_canvas.height, this.dwidth * 0.35, this.dheight * 0.35);
+	printNumberIntoStringAsImages(hours,0.763*g_canvas.width,0.3*g_canvas.height,0.35,true,true);
+	g_context.drawImage(this.h, 0.773*g_canvas.width, 0.3*g_canvas.height, this.hwidth * 0.35, this.hheight * 0.35);
+	printNumberIntoStringAsImages(minutes,0.836*g_canvas.width,0.3*g_canvas.height,0.35,true,true);
+	g_context.drawImage(this.m, 0.846*g_canvas.width, 0.3*g_canvas.height, this.mwidth * 0.35, this.mheight * 0.35);
+	printNumberIntoStringAsImages(seconds,0.915*g_canvas.width,0.3*g_canvas.height,0.35,true,true);
+	g_context.drawImage(this.s, 0.925*g_canvas.width, 0.3*g_canvas.height, this.swidth * 0.35, this.sheight * 0.35);
+	printNumberIntoStringAsImages(totalPlay,0.14*g_canvas.width,0.53*g_canvas.height,0.35,false,false);
+	printNumberIntoStringAsImages(totalHeartsCollected,0.45*g_canvas.width,0.53*g_canvas.height,0.35,false,false);
+	printNumberIntoStringAsImages(totalPowerupsCollected,0.8*g_canvas.width,0.53*g_canvas.height,0.35,false,false);
+	printNumberIntoStringAsImages(totalDeath,0.73*g_canvas.width,0.75*g_canvas.height,0.35,false,false);
 
 	}}function printNumberIntoStringAsImages(number,printX,printY,ratio,printonR,limit2){	var str = number.toString();	var length = str.length;	var imageWidth = 0;	var totalWidth = 0;	if (printonR == false)
 	{	// Cycle through all numbers first to get the total width	for (var counter = length; counter >= 0; counter--)	{	var n = str.charAt(counter);
