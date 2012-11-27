@@ -148,11 +148,11 @@
 
 	g_background.render();
 	g_foreground.render();
-	g_fuzzle.render();
-	renderArray(g_trail);
 	// introduce enemy
 	renderArray(g_obstacle);
 	renderArray(g_alliance);
+	g_fuzzle.render();
+	renderArray(g_trail);
 	renderHUD();
 	g_HUD.render();
 	g_NumberPrinter.render();
