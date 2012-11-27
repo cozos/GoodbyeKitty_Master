@@ -64,9 +64,30 @@
 
 	//Background Level Manager (level increases when timer is a multiple of transition, function will be called in Repaint)
 	var g_levelDirector;
-	var g_gameState = "mainmenu";
 	var g_paused = false;
-
+	
+	/*
+	 * Possible game states:
+	 * - mainmenu
+	 * - inlevel
+	 * - hellcutscene
+	 * - heavencutscene
+	 * - paused
+	 * - gameovercutscene
+	 * - gameover
+	 * - instatistics
+	 * - ininstructions
+	 */
+	var g_gameState = "mainmenu";
+	
+	/*
+	 * Possible Universes:
+	 * - Heaven
+	 * - Hell
+	 */
+	var g_universe = "Heaven";
+	var g_helltimer = 0;
+	
 	//Audio manager
 	var g_audioLoop;
 	var g_fuzzleaudio;
@@ -150,8 +171,8 @@
 			{
 			
 			  	g_fuzzleaudio = document.getElementById("ow");
-     			  	g_fuzzleaudio.volume = 1;
-		    	  	g_fuzzleaudio.play();
+     			g_fuzzleaudio.volume = 1;
+		   		g_fuzzleaudio.play();
 
 				g_audioLoop.pause();
 				g_audioLoop = document.getElementById("falling");
@@ -164,6 +185,12 @@
 				g_fuzzle.lives += 1;
 				g_fuzzle.health -= 9;
 			}
+			
+			if (g_helltimer >= 300){
+				g_levelDirector.heavenLevel();
+				g_helltimer = 0;
+			}
+	
 		}
 	}
 
@@ -177,18 +204,25 @@
 	/**
  	* Determines randomly (if 0 then devil, if 1,2 then pillar) which obstacle to instantiate.
  	*/
+ 	if (g_universe == "Heaven"){
+ 		var speed = 1;
+ 	}
+ 	else{
+ 		var speed = 2.5;
+ 	}
+ 	
  	var n = Math.round(Math.random()*13);
-	if (n < 1) d = new obstacle("powerup",-16);
-	else if (n < 2) d = new obstacle("health",-12);
-	else if (n < 9) d = new obstacle("pillar",-10);
-	else d = new obstacle("devil",-14);
+	if (n < 1) d = new obstacle("powerup",-16 * speed);
+	else if (n < 2) d = new obstacle("health",-12 * speed);
+	else if (n < 9) d = new obstacle("pillar",-10 * speed);
+	else d = new obstacle("devil",-14 * speed);
 	
 	// Instantiates new Obstacle
 	g_obstacle.push(d);
-	
+	Math.pow
 	// Resets the interval for the next obstacle creation. This is so that obstacles appear randomly
 	clearInterval(g_createObstacleInterval); 
-	var x = Math.round(Math.random() * 1000) + 1500 - ((g_levelDirector.myCurrentLevel) * 450); 
+	var x = Math.round(Math.random() * 1000) + 2250 - (450 * speed) - ((g_levelDirector.myCurrentLevel) * 450); 
 	g_createObstacleInterval = setInterval(createObstacle, x);
 	}  
 	
@@ -206,6 +240,12 @@
 	
     <img    id="sky"
             src="Images/sky.png">
+   
+    <img    id="hellrocks"
+            src="Images/hell sky.png">	
+	
+    <img    id="hellsky"
+            src="Images/hell sky.png">
             
     <img    id="fuzzle"
             src="Images/fuzzle.png">

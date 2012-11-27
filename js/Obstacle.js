@@ -82,7 +82,7 @@ obstacle.prototype.render = function(){
 	this.posx += (this.xvelocity * scrollRate);
 	}
 
-	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene")
+	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene")
 	{
   	// Render the image
   	g_context.drawImage(this.ImageFile, this.posx, this.posy, this.width, this.height);

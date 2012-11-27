@@ -26,6 +26,11 @@ function fuzzle(){
 	this.FFRwidth = this.FuzzleFlyingR.width * g_resize * 0.2;
 	this.FFRheight = this.FuzzleFlyingR.height * g_resize * 0.2;
 
+	this.fuzzlearray = [];
+	this.fuzzlearray.push(this.FuzzleFlyingR);
+	this.fuzzlearray.push(this.FuzzleFlying2);
+	this.fuzzlearray.push(this.FuzzleFlying3);
+	
 	this.FuzzleD1 = document.getElementById("fuzzledead1");
 	this.FD1width = this.FuzzleD1.width * g_resize * 0.2;
 	this.FD1height = this.FuzzleD1.height * g_resize * 0.2;
@@ -94,7 +99,6 @@ function fuzzle(){
 fuzzle.prototype.render = function(){
         
        
-    
     //Instantiates fuzzle's trail
     if (this.flag == 0){
 	var t;
@@ -108,18 +112,8 @@ fuzzle.prototype.render = function(){
     } 
     this.flag = 0;
     
-
-	// Updates Fuzzle's velocity and position.
-	this.velocity += this.gravity;
-	this.posy += this.velocity;
-
 	if (g_gameState == "inlevel")
 	{
-		
-	
-  
-	
-		
 		// If player crashes into the floor
 		if ((this.posy + this.height) > g_canvas.height)
 		{
@@ -134,68 +128,90 @@ fuzzle.prototype.render = function(){
 			this.velocity = 0;
 		}
 
-	
+		//Fuzzle wings flutter
 		if(this.upPressed == false){
 			this.state = 0;
+			this.counter2 = 0;
 		}
 		else{
+			if(this.counter2 > 2){
 			this.state++;
+			this.counter2 = 0;
+			}
 			if(this.state > 2){
 				this.state = 1;
 			}
+			this.counter2++;
 		}
 		
+		g_context.drawImage(this.fuzzlearray[this.state], this.posx, this.posy, this.fuzzlearray[this.state].width * g_resize * 0.2, this.fuzzlearray[this.state].height * g_resize * 0.2);
 	}
 
-	if (this.gravity < 2) this.gravity += 2;
+	if (g_gameState == "hellcutscene"){
+		
+		if(this.posx < g_canvas.width * 0.45){
+			this.posx += g_canvas.width/200;
+			this.velocity = -2;
+		}
+		else{
+			this.velocity = 2;
+			//DONOTHING
+		}
+		
+		g_context.drawImage(this.deatharray[0], this.posx, this.posy, this.fuzzlearray[0].width * g_resize * 0.2, this.fuzzlearray[0].height * g_resize * 0.2);
+		
+		if(g_fuzzle.posy > g_canvas.height){
+		g_gameState = "inlevel";
+		g_background = new Background("hellsky", 5);
+     	g_foreground = new Background("hellrocks", 8);
 	
-	// Draws the image
-
-	if (this.state == 0)
-	{
-	g_context.drawImage(this.FuzzleFlyingR, this.posx, this.posy, this.FFRwidth, this.FFRheight);
-	}
-	else if (this.state == 1)
-	{
-	g_context.drawImage(this.FuzzleFlying2, this.posx, this.posy, this.FF1width, this.FF1height);
-	}
-	else if (this.state == 2)
-	{
-	g_context.drawImage(this.FuzzleFlying3, this.posx, this.posy, this.FF2width, this.FF2height);
+   		g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
+   		this.posx = 0.15 * g_canvas.width;
+   		this.posy = 0.5 * g_canvas.height;
+   		this.gravity = 1;
+   		this.velocity = 1;
+		g_obstacle = [];
+   		}
 	}
 	
-	if (this.state == 3){
+	if (g_gameState == "gameovercutscene")
+	{
+		
+		this.state = -1;
 		g_context.drawImage(this.deatharray[this.counter], this.posx, this.posy, this.deatharray[this.counter].width * g_resize * 0.2, this.deatharray[this.counter].height * g_resize * 0.2);
 		if(this.counter < 8){
 		this.counter++;	
 		}
-	}
-	
-	
-
-
-	if (g_gameState == "gameovercutscene")
-	{
-		
-		
-		this.state = 3;
 
 		if (g_fuzzle.posy > g_canvas.height)
 		{	
-		
 			clearInterval(g_renderInterval);
 			g_levelDirector = new LevelDirector();
 			g_levelDirector.gameOver();
+			this.state = 0;
 		}
+		
 	}
+	
+	// Updates Fuzzle's gravity, velocity and position.
+	this.velocity += this.gravity;
+	this.posy += this.velocity;
+	if (this.gravity < 2) this.gravity += 2;
 }
 
 /**
  * What happens when fuzzle collides into something.
  */
 fuzzle.prototype.collidedpowerup = function(){
-	var a = new Alliance("angelalliance", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2);
-	g_alliance.push(a);
+	var r = Math.round(Math.random());
+	if (r == 0 && g_universe == "Heaven"){
+		g_levelDirector.hellLevel();
+	}
+	else{
+		var a = new Alliance("angelalliance", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,0);
+		g_alliance.push(a);
+	}
+	
 
 }
 

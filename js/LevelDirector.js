@@ -44,7 +44,9 @@ LevelDirector.prototype.startLevel = function()
       g_foreground = new Background("cloud", 8);
       g_alliance = [];
       g_obstacle = [];
-
+	  g_universe = "Heaven";
+	  g_helltimer = 0;
+	  
       g_fuzzle = new fuzzle();
       g_HUD = new HUD();
       g_NumberPrinter = new NumberPrinter();
@@ -62,6 +64,30 @@ LevelDirector.prototype.startLevel = function()
    g_clockInterval = setInterval(clockLoop, 100);
    g_renderInterval = setInterval(renderLoop, 1000/24);
    g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
+}
+
+LevelDirector.prototype.hellLevel = function()
+{
+	  g_gameState = "hellcutscene";
+	  clearInterval(g_createObstacleInterval);
+   	  g_universe = "Hell";
+   	  var a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.8);
+		g_alliance.push(a);
+		  a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.8);
+		g_alliance.push(a);
+		  a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.8);
+		g_alliance.push(a);
+	
+      
+}
+
+LevelDirector.prototype.heavenLevel = function()
+{
+		
+   	  g_universe = "Heaven";
+      g_background = new Background("sky", 5);
+      g_foreground = new Background("cloud", 8);
+      g_obstacle = [];
 }
 
 LevelDirector.prototype.gameOverCutScene = function()
@@ -112,6 +138,7 @@ LevelDirector.prototype.gameOverCutScene = function()
 
 LevelDirector.prototype.gameOver = function()
 {
+	g_universe = "Heaven";
 	g_gameState = "gameover";
 	g_background = new Background("gameover",0);
 	g_background.render();
@@ -221,6 +248,12 @@ function clockLoop()
 	{
 	g_levelDirector.myCurrentLevel = (g_levelDirector.myClock - (g_levelDirector.myClock % transition)) / transition;
 	}
-
+	
+	if(g_universe == "Heaven"){
 	g_fuzzle.score += (g_levelDirector.myCurrentLevel+1);
+	}
+	else{
+	g_fuzzle.score += (g_levelDirector.myCurrentLevel+1) * 2;
+	g_helltimer += 1;
+	}
 }

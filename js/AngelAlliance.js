@@ -2,7 +2,7 @@
  * Its Angel Alliance.
  * @constructor
  */
-function Alliance(element, position, total){
+function Alliance(element, position, total, posx){
 	// Image Attributes
 	this.ImageFile = document.getElementById(element);
 	this.width = this.ImageFile.width * g_resize;
@@ -14,7 +14,7 @@ function Alliance(element, position, total){
 	this.total = total;
 	this.type = element;
 	this.phase = position/total*2*3.14;
-	this.posx = 0;
+	this.posx = posx;
 	this.posy = 0;	
 }
 
@@ -27,13 +27,13 @@ Alliance.prototype.render = function(){
 	if(Math.abs(this.posx - x) < g_fuzzle.width * 0.5 && Math.abs(this.posy - y) < g_fuzzle.width * 0.5) this.state = 1;
 	
 	if(this.state == 0){
-		this.posx = this.posx + (x - this.posx)/30;
-		this.posy = this.posy + (y - this.posy)/30;
+		this.posx = this.posx + (x - this.posx)/20;
+		this.posy = this.posy + (y - this.posy)/20;
 	}
 	
 	if(this.state == 1){
 	this.phase = this.position/this.total*2*3.14;
-	this.posx = g_fuzzle.posx + (0.5 * g_fuzzle.width) + 100 * Math.sin(0.2*g_levelDirector.myClock + this.phase) - (0.8 * this.width);
+	this.posx = g_fuzzle.posx + (0.6 * g_fuzzle.width) + 100 * Math.sin(0.2*g_levelDirector.myClock + this.phase) - (0.8 * this.width);
 	this.posy = g_fuzzle.posy + (0.5 * g_fuzzle.height) + 100 * Math.cos(0.2*g_levelDirector.myClock+ this.phase) - (0.5 * this.height);
 	}	
   	g_context.drawImage(this.ImageFile, this.posx, this.posy, this.width, this.height);
