@@ -16,6 +16,57 @@ function obstacle(element,velocity){
 	this.width = this.ImageFile.width * g_resize;
 	this.height = this.ImageFile.height * g_resize;
 	}
+
+	this.healthD1 = document.getElementById("healthD1");
+	this.HD1width = this.healthD1.width * g_resize * 0.2;
+	this.HD1height = this.healthD1.height * g_resize * 0.2;
+	this.healthD2 = document.getElementById("healthD2");
+	this.HD2width = this.healthD2.width * g_resize * 0.2;
+	this.HD2height = this.healthD2.height * g_resize * 0.2;
+	this.healthD3 = document.getElementById("healthD3");
+	this.HD3width = this.healthD3.width * g_resize * 0.2;
+	this.HD3height = this.healthD3.height * g_resize * 0.2;
+	this.healthD4 = document.getElementById("healthD4");
+	this.HD4width = this.healthD4.width * g_resize * 0.2;
+	this.HD4height = this.healthD4.height * g_resize * 0.2;
+	this.healthD5 = document.getElementById("healthD5");
+	this.HD5width = this.healthD5.width * g_resize * 0.2;
+	this.HD5height = this.healthD5.height * g_resize * 0.2;
+	this.healthDeathCounter = 0;
+	this.healthDeathFlag = 0;
+	this.healthDeathArray = [];
+	this.healthDeathArray.push(this.healthD1);
+	this.healthDeathArray.push(this.healthD2);
+	this.healthDeathArray.push(this.healthD3);
+	this.healthDeathArray.push(this.healthD4);
+	this.healthDeathArray.push(this.healthD5);
+
+	this.powerupD1 = document.getElementById("powerupD1");
+	this.PUD1width = this.powerupD1.width * g_resize * 0.2;
+	this.PUD1height = this.powerupD1.height * g_resize * 0.2;
+	this.powerupD2 = document.getElementById("powerupD2");
+	this.PUD2width = this.powerupD2.width * g_resize * 0.2;
+	this.PUD2height = this.powerupD2.height * g_resize * 0.2;
+	this.powerupD3 = document.getElementById("powerupD3");
+	this.PUD3width = this.powerupD3.width * g_resize * 0.2;
+	this.PUD3height = this.powerupD3.height * g_resize * 0.2;
+	this.powerupD4 = document.getElementById("powerupD4");
+	this.PUD4width = this.powerupD4.width * g_resize * 0.2;
+	this.PUD4height = this.powerupD4.height * g_resize * 0.2;
+	this.powerupD5 = document.getElementById("powerupD5");
+	this.PUD5width = this.powerupD5.width * g_resize * 0.2;
+	this.PUD5height = this.powerupD5.height * g_resize * 0.2;
+	this.powerupDeathCounter = 0;
+	this.powerupDeathFlag = 0;
+	this.powerupDeathArray = [];
+	this.powerupDeathArray.push(this.powerupD1);
+	this.powerupDeathArray.push(this.powerupD2);
+	this.powerupDeathArray.push(this.powerupD3);
+	this.powerupDeathArray.push(this.powerupD4);
+	this.powerupDeathArray.push(this.powerupD5);
+
+	this.pillarDeathCounter = 0;
+	this.devilDeathCounter = 0;
 	this.lives = 1;
 	
 	// Obstacle attributes
@@ -80,6 +131,33 @@ obstacle.prototype.render = function(){
 	{
 	// Update x coordinate of obstacle
 	this.posx += (this.xvelocity * scrollRate);
+
+		if (this.powerupDeathFlag > 0)
+		{
+			this.powerupDeathCounter = Math.floor(this.powerupDeathFlag/100);
+			g_context.drawImage(this.powerupDeathArray[this.powerupDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.powerupDeathArray[this.powerupDeathCounter].width * g_resize * 0.5, this.powerupDeathArray[this.powerupDeathCounter].height * g_resize * 0.5);
+			if(this.powerupDeathCounter < 4)
+			{
+				this.powerupDeathFlag++;
+				if(this.powerupDeathCounter == 5)
+				{
+					this.powerupDeathFlag = 0;
+				}
+			}
+		}
+		if (this.healthDeathFlag > 0)
+		{
+			this.healthDeathCounter = Math.floor(this.healthDeathFlag/100);
+			g_context.drawImage(this.healthDeathArray[this.healthDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.healthDeathArray[this.healthDeathCounter].width * g_resize * 0.5, this.healthDeathArray[this.healthDeathCounter].height * g_resize * 0.5);
+			if(this.healthDeathCounter < 4)
+			{
+				this.healthDeathFlag++;
+				if(this.healthDeathCounter == 5)
+				{
+					this.healthDeathFlag = 0;
+				}
+			}
+		}
 	}
 
 	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene")
@@ -95,18 +173,30 @@ obstacle.prototype.render = function(){
  * What happens when an obstacle collides into something. For now, the obstacle dissapears.
  */
 obstacle.prototype.collided = function(){
-	this.posx = -300;
-	if (this.type == "powerup"){	
-		 	return 1;
+	if (this.type == "powerup")
+	{
+		this.powerupDeathFlag = 1;
+		this.posx -= 300;
+	 	return 1;
 	}
-	else if (this.type == "health"){
-			return 2;
+	else if (this.type == "health")
+	{
+		this.healthDeathFlag = 1;
+		this.posx -= 300;
+	 	return 2;
 	}
 	else if (this.type == "pillar"){
-			return pillar;
+		g_pillarDeathCounter = 1;
+
+	g_afterEffects = new AfterEffects("pillar", this.posx,this.posy);
+		this.posx -= 300;
+		return pillar;
 	}
 	else if (this.type == "devil"){
-			return devil;
+		g_devilDeathCounter = 1;
+
+	g_afterEffects = new AfterEffects("devil", this.posx,this.posy);
+		this.posx -= 300;
+		return devil;
 	}
-	
 }
