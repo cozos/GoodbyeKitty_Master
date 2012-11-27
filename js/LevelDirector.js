@@ -50,8 +50,10 @@ LevelDirector.prototype.startLevel = function()
       g_NumberPrinter = new NumberPrinter();
 
       g_gameState = "inlevel";
+
+      g_audioLoop = document.getElementById("background_loop");
       g_audioLoop.loop = true;
-      g_audioLoop.volume = 0.5;
+      g_audioLoop.volume = 0.3;
       g_audioLoop.currentTime = 0;
       g_audioLoop.play();
    }

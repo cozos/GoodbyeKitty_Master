@@ -101,10 +101,6 @@
 		document.addEventListener("touchend", touchUp, false);
 		document.addEventListener("touchmove", touchXY, false);
 		document.body.addEventListener("touchcancel", touchUp, false);
-
-		g_audioLoop = document.getElementById("background_loop");
-		g_audioLoop.volume = 0;
-
 	}
 
 	/**
@@ -153,10 +149,14 @@
 			if (g_fuzzle.lives <= 0)
 			{
 			
-		  	g_fuzzleaudio = document.getElementById("ow");
-     	  	g_fuzzleaudio.volume = 1;
-    	  	g_fuzzleaudio.play();
+			  	g_fuzzleaudio = document.getElementById("ow");
+     			  	g_fuzzleaudio.volume = 1;
+		    	  	g_fuzzleaudio.play();
+
 				g_audioLoop.pause();
+				g_audioLoop = document.getElementById("falling");
+				g_audioLoop.volume = 1;
+				g_audioLoop.play();				
 				g_levelDirector.gameOverCutScene();
 			}
 			if (g_fuzzle.health >= 9)
@@ -387,7 +387,21 @@
             src="Audio/pillar crumble.ogg"
             >
     </audio>
-            
+
+    <audio  id="demonDeath" 
+            src="Audio/demon death noise.ogg"
+            >
+    </audio>
+
+    <audio  id="falling" 
+            src="Audio/falling sound.ogg"
+            >
+    </audio>
+
+    <audio  id="allyDisappear" 
+            src="Audio/Ally disappear.ogg"
+            >
+
 	 </div>
 </body>
 </html>

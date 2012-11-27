@@ -102,8 +102,11 @@ obstacle.prototype.collided = function(){
 	else if (this.type == "health"){
 			return 2;
 	}
-	else{
-		return false;
+	else if (this.type == "pillar"){
+			return pillar;
+	}
+	else if (this.type == "devil"){
+			return devil;
 	}
 	
 }

@@ -81,12 +81,19 @@ function collision_arrayVSarray(array, array){
 			  	g_fuzzleaudio.play();
 
 			}
- 			else 
-			{
+ 			else if (powerorhealth == pillar){
 				object1.collidedobstacle();
 				deathCounter++;
 
 			  	g_fuzzleaudio = document.getElementById("pillarCrumble");
+			  	g_fuzzleaudio.volume = 0.8;
+			  	g_fuzzleaudio.play();
+			}
+ 			else if (powerorhealth == devil){
+				object1.collidedobstacle();
+				deathCounter++;
+
+			  	g_fuzzleaudio = document.getElementById("demonDeath");
 			  	g_fuzzleaudio.volume = 1;
 			  	g_fuzzleaudio.play();
 			}
