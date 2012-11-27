@@ -208,7 +208,7 @@ fuzzle.prototype.collidedpowerup = function(){
 		g_levelDirector.hellLevel();
 	}
 	else{
-		var a = new Alliance("angelalliance", g_alliance.length, 9,0);
+		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0);
 		g_alliance.push(a);
 	}
 	

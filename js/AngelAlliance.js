@@ -22,6 +22,7 @@ function Alliance(element, position, total, posx){
 * Renders Fuzzle's Alliance.
 */
 Alliance.prototype.render = function(){
+	this.total = g_alliance.length;
 	var x = g_fuzzle.posx + (0.5 * g_fuzzle.width) + 100 * Math.sin(0.2*g_levelDirector.myClock + this.phase) - (0.8 * this.width);
 	var y = g_fuzzle.posy + (0.5 * g_fuzzle.height) + 100 * Math.cos(0.2*g_levelDirector.myClock+ this.phase) - (0.5 * this.height);
 	if(Math.abs(this.posx - x) < g_fuzzle.width * 0.5 && Math.abs(this.posy - y) < g_fuzzle.width * 0.5) this.state = 1;

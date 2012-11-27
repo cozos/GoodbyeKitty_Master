@@ -55,7 +55,7 @@ LevelDirector.prototype.startLevel = function()
       g_audioLoop.loop = true;
       g_audioLoop.volume = 0.3;
       g_audioLoop.currentTime = 0;
-      g_audioLoop.play();
+      //g_audioLoop.play();
    }
 
    g_inputInterval = setInterval(inputLoop, 1000/24);
