@@ -71,11 +71,11 @@ LevelDirector.prototype.hellLevel = function()
 	  g_gameState = "hellcutscene";
 	  clearInterval(g_createObstacleInterval);
    	  g_universe = "Hell";
-   	  var a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.8);
+   	  var a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0);
 		g_alliance.push(a);
-		  a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.8);
+		  a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.5);
 		g_alliance.push(a);
-		  a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.8);
+		  a = new Alliance("devil", g_alliance.length*g_canvas.width * 0.05, 9+g_alliance.length*2,g_canvas.width * 0.9);
 		g_alliance.push(a);
 	
       
