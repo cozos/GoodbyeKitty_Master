@@ -108,8 +108,19 @@ function keyboard()
    {
 	if (g_keys[90] == true) //check if z arrow is pressed
 	{
-		// create the laser bullet
-		g_projectile = new Projectile("laserBeam",g_fuzzle.posx + g_fuzzle.FLRwidth,g_fuzzle.posy + 0.65*g_fuzzle.FLRheight);
+		g_zKeyPressed = true;
+		if (g_zKeyCounter%3 == 0)
+		{
+			// create the laser bullet
+			var a = new Projectile("laserBeam",g_fuzzle.posx + g_fuzzle.FLRwidth,g_fuzzle.posy + 0.65*g_fuzzle.FLRheight);
+			g_projectile.push(a);
+		}
+		g_zKeyCounter++;	
+	}
+	else 
+	{
+		g_zKeyPressed = false;
+		g_zKeyCounter = 0;
 	}
    }
 }

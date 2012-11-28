@@ -54,10 +54,11 @@
 	var g_obstacle = [];
 	var g_alliance = [];
 	var g_tempalliance = [];
+	var g_projectile = [];
 
-/**/	var g_powerupGUN = false;
-/**/	var g_powerupGUNtimer = 0;
-	var g_projecitle;
+	var g_powerupGUN = false;
+	var g_powerupGUNtimer = 0;
+	var g_powerupGUNrenderFlag = false;
 
 	//Keys arrays
 	var g_keys = [];
@@ -68,6 +69,8 @@
 	var g_touchY = [];
 	var len = 0;
 	var g_pauseKeyPressed = false;
+	var g_zKeyPressed = false;
+	var g_zKeyCounter = 0;
 
 	//Background Level Manager (level increases when timer is a multiple of transition, function will be called in Repaint)
 	var g_levelDirector;
@@ -164,7 +167,7 @@
 	g_HUD.render();
 	g_NumberPrinter.render();
 	if(g_gameState == "inlevel") collision_singleVSarray(g_fuzzle,g_obstacle,1);
-	if(g_powerupGUN == true && g_keys[90] == true) g_projectile.render();
+	if(g_projectile.length != 0) renderArray(g_projectile);
 	}
 
 	function inputLoop()
@@ -206,7 +209,7 @@
 					g_powerupGUN = false;
 					g_powerupGUNtimer = 0;
 				}
-			}	
+			}
 		}
 	}
 
