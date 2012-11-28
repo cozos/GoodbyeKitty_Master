@@ -35,7 +35,6 @@ function obstacle(element,velocity){
 	this.HD5width = this.healthD5.width * g_resize * 0.2;
 	this.HD5height = this.healthD5.height * g_resize * 0.2;
 	this.healthDeathCounter = 0;
-	this.healthDeathFlag = 0;
 	this.healthDeathArray = [];
 	this.healthDeathArray.push(this.healthD1);
 	this.healthDeathArray.push(this.healthD2);
@@ -59,7 +58,6 @@ function obstacle(element,velocity){
 	this.PUD5width = this.powerupD5.width * g_resize * 0.2;
 	this.PUD5height = this.powerupD5.height * g_resize * 0.2;
 	this.powerupDeathCounter = 0;
-	this.powerupDeathFlag = 0;
 	this.powerupDeathArray = [];
 	this.powerupDeathArray.push(this.powerupD1);
 	this.powerupDeathArray.push(this.powerupD2);
@@ -134,31 +132,33 @@ obstacle.prototype.render = function(dummy){
 	// Update x coordinate of obstacle
 	this.posx += (this.xvelocity * scrollRate);
 
-		if (this.powerupDeathFlag > 0)
+		if (g_powerupDeathFlag > 0)
 		{
-			this.powerupDeathCounter = Math.floor(this.powerupDeathFlag/100);
-			g_context.drawImage(this.powerupDeathArray[this.powerupDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.powerupDeathArray[this.powerupDeathCounter].width * g_resize * 0.5, this.powerupDeathArray[this.powerupDeathCounter].height * g_resize * 0.5);
-			if(this.powerupDeathCounter < 4)
+			g_context.drawImage(this.powerupDeathArray[g_powerupDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.powerupDeathArray[g_powerupDeathCounter].width * g_resize * 0.5, this.powerupDeathArray[g_powerupDeathCounter].height * g_resize * 0.5);
+			if(g_powerupDeathCounter <= 4)
 			{
-				this.powerupDeathFlag++;
-				if(this.powerupDeathCounter == 5)
+				g_powerupDeathFlag++;
+				if(g_powerupDeathCounter == 4)
 				{
-					this.powerupDeathFlag = 0;
+					g_powerupDeathFlag = 0;
+					this.powerupDeathArray = [];
 				}
 			}
+			g_powerupDeathCounter = Math.floor(g_powerupDeathFlag/2);
 		}
-		if (this.healthDeathFlag > 0)
+		if (g_healthDeathFlag > 0)
 		{
-			this.healthDeathCounter = Math.floor(this.healthDeathFlag/100);
-			g_context.drawImage(this.healthDeathArray[this.healthDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.healthDeathArray[this.healthDeathCounter].width * g_resize * 0.5, this.healthDeathArray[this.healthDeathCounter].height * g_resize * 0.5);
-			if(this.healthDeathCounter < 4)
+			g_context.drawImage(this.healthDeathArray[g_healthDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.healthDeathArray[g_healthDeathCounter].width * g_resize * 0.5, this.healthDeathArray[g_healthDeathCounter].height * g_resize * 0.5);
+			if(g_healthDeathCounter <= 4)
 			{
-				this.healthDeathFlag++;
-				if(this.healthDeathCounter == 5)
+				g_healthDeathFlag++;
+				if(g_healthDeathCounter == 4)
 				{
-					this.healthDeathFlag = 0;
+					g_healthDeathFlag = 0;
+					this.healthDeathArray = [];
 				}
 			}
+			g_healthDeathCounter = Math.floor(g_healthDeathFlag/2);
 		}
 	}
 
@@ -183,13 +183,13 @@ obstacle.prototype.render = function(dummy){
 obstacle.prototype.collided = function(){
 	if (this.type == "powerup")
 	{
-		this.powerupDeathFlag = 1;
+		g_powerupDeathFlag = 1;
 		this.posx = -300;
 	 	return "powerup";
 	}
 	else if (this.type == "health")
 	{
-		this.healthDeathFlag = 1;
+		g_healthDeathFlag = 1;
 		this.posx = -300;
 	 	return "health";
 	}
