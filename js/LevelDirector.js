@@ -71,6 +71,7 @@ LevelDirector.prototype.hellLevel = function()
 {
 	g_gameState = "hellcutscene";
 	clearInterval(g_createObstacleInterval);
+	clearInterval(g_clockInterval);
    	g_universe = "Hell";
    	g_tempalliance = g_alliance;
    	g_alliance = [];
