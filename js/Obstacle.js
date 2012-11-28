@@ -177,26 +177,26 @@ obstacle.prototype.collided = function(){
 	{
 		this.powerupDeathFlag = 1;
 		this.posx = -300;
-	 	return 1;
+	 	return "powerup";
 	}
 	else if (this.type == "health")
 	{
 		this.healthDeathFlag = 1;
 		this.posx = -300;
-	 	return 2;
+	 	return "health";
 	}
 	else if (this.type == "pillar"){
 		g_pillarDeathCounter = 1;
 
 	g_afterEffects = new AfterEffects("pillar", this.posx,this.posy);
 		this.posx = -300;
-		return pillar;
+		return "pillar";
 	}
 	else if (this.type == "devil"){
 		g_devilDeathCounter = 1;
 
 	g_afterEffects = new AfterEffects("devil", this.posx,this.posy);
 		this.posx = -300;
-		return devil;
+		return "devil";
 	}
 }
