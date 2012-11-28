@@ -10,11 +10,26 @@ function collision_singleVSsingle(single1, single2, flag){
  * Checks if a singular object collides with an array of objects 
  */
 function collision_singleVSarray(single, array, flag){
+	var flag = false;
+
 	for(var i = 0; i < array.length; i++){
 		if(checkCollision(single, array[i], flag) == true)
 		{
-			g_obstacle.splice(i,1);
+			array.splice(i,1);
+			flag = true;
 		}
+		else 
+		{
+			flag = false;
+		}
+	}
+	if (flag == true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 	

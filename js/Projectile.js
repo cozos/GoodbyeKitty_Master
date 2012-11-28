@@ -28,7 +28,10 @@ Projectile.prototype.render = function(){
 	// Checks for collision
 	for (var i=0;i<=g_projectile.length-1;i++)
 	{
-		collision_singleVSarray(g_projectile[i],g_obstacle,1);
+		if (collision_singleVSarray(g_projectile[i],g_obstacle,1) == true)
+		{
+			g_projectile.splice(i,1);
+		}
 	}
 }
 
