@@ -18,7 +18,7 @@ function trail(element,speed){
 /**
 * Renders Fuzzle's trail.
 */
-trail.prototype.render = function(){
+trail.prototype.render = function(dummy){
 	
     // Sprite sheet position
     var srcx = 0;
