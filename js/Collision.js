@@ -64,7 +64,7 @@ function collision_arrayVSarray(array, array){
  			 (((lower_y_1 > lower_y_2) && (lower_y_1 < upper_y_2)) || ((upper_y_1 > lower_y_2) && (upper_y_1 < upper_y_2)))){
  			
  			var powerorhealth = object2.collided();
- 			if(powerorhealth == 1){
+ 			if(powerorhealth == "powerup"){
 				object1.collidedpowerup();
 				powerupsCollectedCounter++;
 
@@ -72,7 +72,7 @@ function collision_arrayVSarray(array, array){
 			  	g_fuzzleaudio.volume = 1;
 			  	g_fuzzleaudio.play();
 			}
-			else if (powerorhealth == 2){
+			else if (powerorhealth == "health"){
 				g_fuzzle.health += 1;
 				heartsCollectedCounter++;
 
@@ -81,7 +81,7 @@ function collision_arrayVSarray(array, array){
 			  	g_fuzzleaudio.play();
 
 			}
- 			else if (powerorhealth == pillar){
+ 			else if (powerorhealth == "pillar"){
 				object1.collidedobstacle();
 				deathCounter++;
 
@@ -89,7 +89,7 @@ function collision_arrayVSarray(array, array){
 			  	g_fuzzleaudio.volume = 0.8;
 			  	g_fuzzleaudio.play();
 			}
- 			else if (powerorhealth == devil){
+ 			else if (powerorhealth == "devil"){
 				object1.collidedobstacle();
 				deathCounter++;
 
@@ -112,6 +112,6 @@ function collision_arrayVSarray(array, array){
 			}
 			
 			// Renders the object
-			array[j].render();
+			array[j].render(j);
 		}
 	}
