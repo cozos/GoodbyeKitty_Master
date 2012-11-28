@@ -173,14 +173,15 @@ fuzzle.prototype.render = function(){
 			//DONOTHING
 		}
 		
-		g_context.drawImage(this.deatharray[0], this.posx, this.posy, this.fuzzlearray[0].width * g_resize * 0.2, this.fuzzlearray[0].height * g_resize * 0.2);
+		g_context.drawImage(this.deatharray[0], this.posx, this.posy, this.deatharray[0].width * g_resize * 0.2, this.deatharray[0].height * g_resize * 0.2);
 		
 		if(g_fuzzle.posy > g_canvas.height){
 		g_gameState = "inlevel";
 		g_background = new Background("hellsky", 5);
-     	g_foreground = new Background("hellrocks", 8);
+	     	g_foreground = new Background("hellrocks", 8);
 	
    		g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
+		g_clockInterval = setInterval(clockLoop, 100);
    		this.posx = 0.15 * g_canvas.width;
    		this.posy = 0.5 * g_canvas.height;
    		this.gravity = 1;
