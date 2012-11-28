@@ -54,6 +54,9 @@
 	var g_alliance = [];
 	var g_tempalliance = [];
 
+/**/	var g_powerupGUN = false;
+/**/	var g_powerupGUNtimer = 0;
+
 	//Keys arrays
 	var g_keys = [];
 	var g_mouseDown = false;
@@ -192,7 +195,15 @@
 				g_levelDirector.heavenLevel();
 				g_helltimer = 0;
 			}
-	
+			if (g_powerupGUN == true)
+			{
+				g_powerupGUNtimer++;
+				if (g_powerupGUNtimer >= 300)
+				{
+					g_powerupGUN = false;
+					g_powerupGUNtimer = 0;
+				}
+			}	
 		}
 	}
 
@@ -262,6 +273,15 @@
             src="Images/character flying_wings4.png">
     <img    id="fuzzleRelease"
             src="Images/character flying_wings_release.png">
+
+    <img    id="fuzzleLaser1"
+            src="Images/character flying_laser1.png">
+    <img    id="fuzzleLaser2"
+            src="Images/character flying_laser2.png">
+    <img    id="fuzzleLaser3"
+            src="Images/character flying_laser3.png">
+    <img    id="fuzzleLaser4"
+            src="Images/character flying_laser4.png">
 
     <img    id="fuzzledead1"
             src="Images/character_dead1.png">

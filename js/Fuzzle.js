@@ -30,39 +30,49 @@ function fuzzle(){
 	this.fuzzlearray.push(this.FuzzleFlyingR);
 	this.fuzzlearray.push(this.FuzzleFlying2);
 	this.fuzzlearray.push(this.FuzzleFlying3);
+
+	this.FuzzleLaserR = document.getElementById("fuzzleLaser1");
+	this.FLRwidth = this.FuzzleLaserR.width * g_resize * 0.2;
+	this.FLRheight = this.FuzzleLaserR.height * g_resize * 0.2;
+	this.FuzzleLaser2 = document.getElementById("fuzzleLaser2");
+	this.FL2width = this.FuzzleLaser2.width * g_resize * 0.2;
+	this.FL2height = this.FuzzleLaser2.height * g_resize * 0.2;
+	this.FuzzleLaser3 = document.getElementById("fuzzleLaser3");
+	this.FL3width = this.FuzzleLaser3.width * g_resize * 0.2;
+	this.FL3height = this.FuzzleLaser3.height * g_resize * 0.2;
+	this.FuzzleLaser4 = document.getElementById("fuzzleLaser4");
+	this.FL4width = this.FuzzleLaser4.width * g_resize * 0.2;
+	this.FL4height = this.FuzzleLaser4.height * g_resize * 0.2;
+
+	this.fuzzleLaser = [];
+	this.fuzzleLaser.push(this.FuzzleLaserR);
+	this.fuzzleLaser.push(this.FuzzleLaser2);
+	this.fuzzleLaser.push(this.FuzzleLaser3);
 	
 	this.FuzzleD1 = document.getElementById("fuzzledead1");
 	this.FD1width = this.FuzzleD1.width * g_resize * 0.2;
 	this.FD1height = this.FuzzleD1.height * g_resize * 0.2;
-
 	this.FuzzleD2 = document.getElementById("fuzzledead2");
 	this.FD2width = this.FuzzleD2.width * g_resize * 0.2;
 	this.FD2height = this.FuzzleD2.height * g_resize * 0.2;
-
 	this.FuzzleD3 = document.getElementById("fuzzledead3");
 	this.FD3width = this.FuzzleD3.width * g_resize * 0.2;
 	this.FD3height = this.FuzzleD3.height * g_resize * 0.2;
-
 	this.FuzzleD4 = document.getElementById("fuzzledead4");
 	this.FD4width = this.FuzzleD4.width * g_resize * 0.2;
 	this.FD4height = this.FuzzleD4.height * g_resize * 0.2;
-
 	this.FuzzleD5 = document.getElementById("fuzzledead5");
 	this.FD5width = this.FuzzleD5.width * g_resize * 0.2;
 	this.FD5height = this.FuzzleD5.height * g_resize * 0.2;
-
 	this.FuzzleD6 = document.getElementById("fuzzledead6");
 	this.FD6width = this.FuzzleD6.width * g_resize * 0.2;
 	this.FD6height = this.FuzzleD6.height * g_resize * 0.2;
-
 	this.FuzzleD7 = document.getElementById("fuzzledead7");
 	this.FD7width = this.FuzzleD7.width * g_resize * 0.2;
 	this.FD7height = this.FuzzleD7.height * g_resize * 0.2;
-
 	this.FuzzleD8 = document.getElementById("fuzzledead8");
 	this.FD8width = this.FuzzleD8.width * g_resize * 0.2;
 	this.FD8height = this.FuzzleD8.height * g_resize * 0.2;
-
 	this.FuzzleD9 = document.getElementById("fuzzledead9");
 	this.FD9width = this.FuzzleD9.width * g_resize * 0.2;
 	this.FD9height = this.FuzzleD9.height * g_resize * 0.2;
@@ -143,8 +153,13 @@ fuzzle.prototype.render = function(){
 			}
 			this.counter2++;
 		}
-		
-		g_context.drawImage(this.fuzzlearray[this.state], this.posx, this.posy, this.fuzzlearray[this.state].width * g_resize * 0.2, this.fuzzlearray[this.state].height * g_resize * 0.2);
+		if (g_powerupGUN == false)
+		{
+		g_context.drawImage(this.fuzzlearray[this.state], this.posx, this.posy, this.fuzzlearray[this.state].width * g_resize * 0.2, this.fuzzlearray[this.state].height * g_resize * 0.2);}
+		else if (g_powerupGUN == true)
+		{
+		g_context.drawImage(this.fuzzleLaser[this.state], this.posx, this.posy, this.fuzzleLaser[this.state].width * g_resize * 0.2, this.fuzzleLaser[this.state].height * g_resize * 0.2);}
+
 	}
 
 	if (g_gameState == "hellcutscene"){
@@ -204,16 +219,17 @@ fuzzle.prototype.render = function(){
  * What happens when fuzzle collides into something.
  */
 fuzzle.prototype.collidedpowerup = function(){
-	var r = Math.round(Math.random() * 2);
+	var r = Math.round(Math.random() * 3);
 	if (r == 0 && g_universe == "Heaven"){
 		g_levelDirector.hellLevel();
 	}
-	else{
+	else if (r == 1){
 		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0);
 		g_alliance.push(a);
 	}
-	
-
+	else if (r == 2){
+		g_powerupGUN = true;
+	}
 }
 
 fuzzle.prototype.collidedobstacle = function(){
