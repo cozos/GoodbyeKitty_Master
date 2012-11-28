@@ -157,7 +157,7 @@
 	renderHUD();
 	g_HUD.render();
 	g_NumberPrinter.render();
-	collision_singleVSarray(g_fuzzle,g_obstacle,1);
+	if(g_gameState == "inlevel") collision_singleVSarray(g_fuzzle,g_obstacle,1);
 	}
 
 	function inputLoop()
@@ -187,7 +187,7 @@
 				g_fuzzle.health -= 9;
 			}
 			
-			if (g_helltimer >= 300){
+			if (g_helltimer >= 600){
 				g_levelDirector.heavenLevel();
 				g_helltimer = 0;
 			}
