@@ -50,14 +50,15 @@ function collision_arrayVSarray(array, array){
  		
  		// Adjusts hitbox for fuzzle
  		lower_x_1 += 0.02 * g_canvas.width
- 		upper_x_1 += -0.07 * g_canvas.width;
+ 		upper_x_1 += -0.05 * g_canvas.width;
 		lower_y_1 += 0.04 * g_canvas.height;	
 		upper_y_1 += -0.03 * g_canvas.height;
 		
-		/*g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, lower_y_1);
+		g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, lower_y_1);
 		g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, upper_y_1);
 		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, lower_y_1);
-		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, upper_y_1);*/
+		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, upper_y_1);
+
 		
  		// If the objects intersect, call collide.
  		if ( (((lower_x_1 > lower_x_2) && (lower_x_1 < upper_x_2)) || ((upper_x_1 > lower_x_2) && (upper_x_1 < upper_x_2))) &&
@@ -91,22 +92,20 @@ function collision_arrayVSarray(array, array){
 				{
 				object1.collidedobstacle();
 				deathCounter++;
-
+				}
 			  	g_fuzzleaudio = document.getElementById("pillarCrumble");
 			  	g_fuzzleaudio.volume = 0.8;
 			  	g_fuzzleaudio.play();
-				}
 			}
  			else if (powerorhealth == "devil"){
 				if (object1 == g_fuzzle)
 				{
 				object1.collidedobstacle();
 				deathCounter++;
-
+				}
 			  	g_fuzzleaudio = document.getElementById("demonDeath");
 			  	g_fuzzleaudio.volume = 1;
 			  	g_fuzzleaudio.play();
-				}
 			}
  			
 		}
