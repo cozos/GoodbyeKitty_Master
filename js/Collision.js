@@ -65,37 +65,48 @@ function collision_arrayVSarray(array, array){
  			
  			var powerorhealth = object2.collided();
  			if(powerorhealth == "powerup"){
+				if (object1 == g_fuzzle)
+				{
 				object1.collidedpowerup();
 				powerupsCollectedCounter++;
 
 			  	g_fuzzleaudio = document.getElementById("yay");
 			  	g_fuzzleaudio.volume = 1;
 			  	g_fuzzleaudio.play();
+				}
 			}
 			else if (powerorhealth == "health"){
+				if (object1 == g_fuzzle)
+				{
 				g_fuzzle.health += 1;
 				heartsCollectedCounter++;
 
 			  	g_fuzzleaudio = document.getElementById("woohoo");
 			  	g_fuzzleaudio.volume = 1;
 			  	g_fuzzleaudio.play();
-
+				}
 			}
  			else if (powerorhealth == "pillar"){
+				if (object1 == g_fuzzle)
+				{
 				object1.collidedobstacle();
 				deathCounter++;
 
 			  	g_fuzzleaudio = document.getElementById("pillarCrumble");
 			  	g_fuzzleaudio.volume = 0.8;
 			  	g_fuzzleaudio.play();
+				}
 			}
  			else if (powerorhealth == "devil"){
+				if (object1 == g_fuzzle)
+				{
 				object1.collidedobstacle();
 				deathCounter++;
 
 			  	g_fuzzleaudio = document.getElementById("demonDeath");
 			  	g_fuzzleaudio.volume = 1;
 			  	g_fuzzleaudio.play();
+				}
 			}
  			
 		}
