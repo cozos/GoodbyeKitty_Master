@@ -241,7 +241,7 @@ function clockLoop()
 	g_fuzzle.score += (g_levelDirector.myCurrentLevel+1);
 	}
 	else{
-	g_fuzzle.score += (g_levelDirector.myCurrentLevel+1) * 2;
+	g_fuzzle.score += (g_levelDirector.myCurrentLevel+1) * 3;
 	g_helltimer += 1;
 	}
 }
