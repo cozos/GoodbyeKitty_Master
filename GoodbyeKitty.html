@@ -21,6 +21,7 @@
   	<script type="text/javascript" src='js/HUD.js'></script>
   	<script type="text/javascript" src='js/Number.js'></script>
 	<script type="text/javascript" src='js/DeathEffects.js'></script>
+	<script type="text/javascript" src='js/Projectile.js'></script>
 	<script type="text/javascript">
 
 	//Window variables
@@ -56,6 +57,7 @@
 
 /**/	var g_powerupGUN = false;
 /**/	var g_powerupGUNtimer = 0;
+	var g_projecitle;
 
 	//Keys arrays
 	var g_keys = [];
@@ -162,6 +164,7 @@
 	g_HUD.render();
 	g_NumberPrinter.render();
 	if(g_gameState == "inlevel") collision_singleVSarray(g_fuzzle,g_obstacle,1);
+	if(g_powerupGUN == true && g_keys[90] == true) g_projectile.render();
 	}
 
 	function inputLoop()

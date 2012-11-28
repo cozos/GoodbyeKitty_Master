@@ -109,6 +109,7 @@ function keyboard()
 	if (g_keys[90] == true) //check if z arrow is pressed
 	{
 		// create the laser bullet
+		g_projectile = new Projectile("laserBeam",g_fuzzle.posx + g_fuzzle.FLRwidth,g_fuzzle.posy + 0.65*g_fuzzle.FLRheight);
 	}
    }
 }
