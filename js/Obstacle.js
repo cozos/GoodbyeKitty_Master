@@ -85,7 +85,7 @@ function obstacle(element,velocity){
 /**
  * Renders obstacles.
  */
-obstacle.prototype.render = function(){
+obstacle.prototype.render = function(dummy){
 
 	//Speed of obstacles will increase when the level increases
 	var scrollRate = Math.pow(1.25,(g_levelDirector.myCurrentLevel))
@@ -176,27 +176,27 @@ obstacle.prototype.collided = function(){
 	if (this.type == "powerup")
 	{
 		this.powerupDeathFlag = 1;
-		this.posx -= 300;
+		this.posx = -300;
 	 	return 1;
 	}
 	else if (this.type == "health")
 	{
 		this.healthDeathFlag = 1;
-		this.posx -= 300;
+		this.posx = -300;
 	 	return 2;
 	}
 	else if (this.type == "pillar"){
 		g_pillarDeathCounter = 1;
 
 	g_afterEffects = new AfterEffects("pillar", this.posx,this.posy);
-		this.posx -= 300;
+		this.posx = -300;
 		return pillar;
 	}
 	else if (this.type == "devil"){
 		g_devilDeathCounter = 1;
 
 	g_afterEffects = new AfterEffects("devil", this.posx,this.posy);
-		this.posx -= 300;
+		this.posx = -300;
 		return devil;
 	}
 }
