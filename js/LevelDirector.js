@@ -68,17 +68,18 @@ LevelDirector.prototype.startLevel = function()
 
 LevelDirector.prototype.hellLevel = function()
 {
-	  g_gameState = "hellcutscene";
-	  clearInterval(g_createObstacleInterval);
-   	  g_universe = "Hell";
-   	  var a = new Alliance("devil", g_alliance.length, 3,0);
-		g_alliance.push(a);
-		  a = new Alliance("devil", g_alliance.length, 3,0);
-		g_alliance.push(a);
-		  a = new Alliance("devil", g_alliance.length, 3,0);
-		g_alliance.push(a);
-	
-      
+	g_gameState = "hellcutscene";
+	clearInterval(g_createObstacleInterval);
+   	g_universe = "Hell";
+   	g_tempalliance = g_alliance;
+   	g_alliance = [];
+   	var a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1);
+	g_alliance.push(a);
+	a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1);
+	g_alliance.push(a);
+        a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1);
+	g_alliance.push(a);
+	     
 }
 
 LevelDirector.prototype.heavenLevel = function()
