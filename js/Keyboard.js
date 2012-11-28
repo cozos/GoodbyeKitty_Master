@@ -103,6 +103,12 @@ function keyboard()
 		g_keys = [];
 	}
 	*/
-
-   }	
+   }
+   if (g_powerupGUN == true)
+   {
+	if (g_keys[90] == true) //check if z arrow is pressed
+	{
+		// create the laser bullet
+	}
+   }
 }
