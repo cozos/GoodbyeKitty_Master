@@ -184,27 +184,25 @@ obstacle.prototype.collided = function(){
 	if (this.type == "powerup")
 	{
 		g_powerupDeathFlag = 1;
-		this.posx = -300;
 	 	return "powerup";
 	}
 	else if (this.type == "health")
 	{
 		g_healthDeathFlag = 1;
-		this.posx = -300;
 	 	return "health";
 	}
-	else if (this.type == "pillar"){
-		g_pillarDeathCounter = 1;
-
-	g_afterEffects = new AfterEffects("pillar", this.posx,this.posy);
-		this.posx = -300;
+	else if (this.type == "pillar")
+	{
+		g_pillarDeathFlag = 1;
+		g_afterEffects = new AfterEffects("pillar", this.posx,this.posy,this.xvelocity,this.yvelocity);
+		g_pillarDeathFlag = 1;
 		return "pillar";
 	}
-	else if (this.type == "devil"){
-		g_devilDeathCounter = 1;
-
-	g_afterEffects = new AfterEffects("devil", this.posx,this.posy);
-		this.posx = -300;
+	else if (this.type == "devil")
+	{
+		g_devilDeathFlag = 1;
+		g_afterEffects = new AfterEffects("devil", this.posx,this.posy,this.xvelocity,this.yvelocity);
+		g_devilDeathFlag = 1;
 		return "devil";
 	}
 }
