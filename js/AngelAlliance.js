@@ -2,7 +2,7 @@
  * Its Angel Alliance.
  * @constructor
  */
-function Alliance(element, position, total, posx){
+function Alliance(element, position, total, devil){
 	// Image Attributes
 	this.ImageFile = document.getElementById(element);
 	this.width = this.ImageFile.width * g_resize;
@@ -14,18 +14,21 @@ function Alliance(element, position, total, posx){
 	this.total = total;
 	this.type = element;
 	this.phase = position/total*2*3.14;
-	this.posx = posx;
-	this.posy = 0;	
+	this.posx = 0;
+	this.posy = 0;
+	this.devil = devil * 0.2;
 }
 
 /**
 * Renders Fuzzle's Alliance.
 */
-Alliance.prototype.render = function(){
+Alliance.prototype.render = function(pos){
 	this.total = g_alliance.length;
+	this.position = pos;
+	this.phase = this.position/this.total*2*3.14;
 	var x = g_fuzzle.posx + (0.5 * g_fuzzle.width) + 100 * Math.sin(0.2*g_levelDirector.myClock + this.phase) - (0.8 * this.width);
 	var y = g_fuzzle.posy + (0.5 * g_fuzzle.height) + 100 * Math.cos(0.2*g_levelDirector.myClock+ this.phase) - (0.5 * this.height);
-	if(Math.abs(this.posx - x) < g_fuzzle.width * 0.5 && Math.abs(this.posy - y) < g_fuzzle.width * 0.5) this.state = 1;
+	if(Math.abs(this.posx - x) < g_fuzzle.width * 0.8 && Math.abs(this.posy - y) < g_fuzzle.width * 0.8) this.state = 1;
 	
 	if(this.state == 0){
 		this.posx = this.posx + (x - this.posx)/20;
