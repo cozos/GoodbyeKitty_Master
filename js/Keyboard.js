@@ -37,7 +37,7 @@ function keyDown(e)
 	}
 	else if (g_gameState == "gameover")
 	{
-		if ( e.keyCode == 39 ) //check if space is pressed
+		if ( e.keyCode == 32 ) //check if space is pressed
 		{
 			g_background = new Background("gameover",0);
 			g_background.render();
@@ -88,10 +88,10 @@ function keyboard()
 	{
 		g_fuzzle.upPressed = false;
 	}
-	if (g_keys[16] == true) //check if shift is pressed
+	/*if (g_keys[16] == true) //check if shift is pressed
 	{
 		g_fuzzle.collidedpowerup();
-	}
+	}*/
 	
 	/* DEBUGGING PURPOSES - PRESS CONTROL
 	if(g_keys[17] == true){

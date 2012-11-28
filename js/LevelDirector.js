@@ -142,6 +142,7 @@ LevelDirector.prototype.gameOverCutScene = function()
 LevelDirector.prototype.gameOver = function()
 {
 	g_projectile =[];
+	g_afterEffects = [];
 	g_universe = "Heaven";
 	g_gameState = "gameover";
 	g_background = new Background("gameover",0);

@@ -3,7 +3,7 @@
  * @constructor
  */
 function fuzzle(){
-	this.Hitboxtest = document.getElementById("hitbox");
+	//this.Hitboxtest = document.getElementById("hitbox");
 	
 	//Image attributes
 	this.ImageFile = document.getElementById("fuzzle");
@@ -230,6 +230,7 @@ fuzzle.prototype.collidedpowerup = function(){
 	}
 	else if (r == 2){
 		g_powerupGUN = true;
+		pause();
 	}
 }
 

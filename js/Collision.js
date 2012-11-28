@@ -72,10 +72,10 @@ function collision_arrayVSarray(array, array){
 		lower_y_1 += 0.04 * g_canvas.height;	
 		upper_y_1 += -0.03 * g_canvas.height;
 		
-		g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, lower_y_1);
+		/*g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, lower_y_1);
 		g_context.drawImage(g_fuzzle.Hitboxtest, lower_x_1, upper_y_1);
 		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, lower_y_1);
-		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, upper_y_1);
+		g_context.drawImage(g_fuzzle.Hitboxtest, upper_x_1, upper_y_1);*/
 
 		
  		// If the objects intersect, call collide.
