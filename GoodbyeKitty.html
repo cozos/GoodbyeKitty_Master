@@ -63,6 +63,10 @@
 	var g_powerupDeathCounter = 0;
 	var g_healthDeathFlag = 0;
 	var g_healthDeathCounter = 0;
+	var g_devilDeathFlag = 0;
+	var g_devilDeathCounter = 0;
+	var g_pillarDeathFlag = 0;
+	var g_pillarDeathCounter = 0;
 
 	//Keys arrays
 	var g_keys = [];
@@ -172,6 +176,7 @@
 	g_NumberPrinter.render();
 	if(g_gameState == "inlevel") collision_singleVSarray(g_fuzzle,g_obstacle,1);
 	if(g_projectile.length != 0) renderArray(g_projectile);
+	if(g_devilDeathFlag > 0 || g_pillarDeathFlag > 0) g_afterEffects.render();
 	}
 
 	function inputLoop()
