@@ -171,6 +171,7 @@ fuzzle.prototype.render = function(){
    		this.gravity = 1;
    		this.velocity = 1;
 		g_obstacle = [];
+		g_alliance = g_tempalliance;
    		}
 	}
 	
@@ -203,7 +204,7 @@ fuzzle.prototype.render = function(){
  * What happens when fuzzle collides into something.
  */
 fuzzle.prototype.collidedpowerup = function(){
-	var r = Math.round(Math.random());
+	var r = Math.round(Math.random() * 2);
 	if (r == 0 && g_universe == "Heaven"){
 		g_levelDirector.hellLevel();
 	}
