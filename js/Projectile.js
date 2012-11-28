@@ -24,7 +24,7 @@ Projectile.prototype.render = function(){
 
 
 /**
- * What happens when the Alliance collides into something.
+ * What happens when the Projectile collides into something.
  */
 Projectile.prototype.collided = function(){
 }
