@@ -8,6 +8,8 @@
  */
 function obstacle(element,velocity){
 	// Image attributes
+	this.Hitboxtest = document.getElementById("hitbox");
+
 	this.ImageFile = document.getElementById(element);
 	if (element == "health" || element == "powerup"){
 	this.width = this.ImageFile.width * g_resize * 0.6;
@@ -164,6 +166,12 @@ obstacle.prototype.render = function(dummy){
 	{
   	// Render the image
   	g_context.drawImage(this.ImageFile, this.posx, this.posy, this.width, this.height);
+
+		g_context.drawImage(this.Hitboxtest, this.posx, this.posy);
+		g_context.drawImage(this.Hitboxtest, this.posx, this.posy+this.height);
+		g_context.drawImage(this.Hitboxtest, this.posx+this.width, this.posy);
+		g_context.drawImage(this.Hitboxtest, this.posx+this.width, this.posy +this.height);
+
 	}
 }
 
