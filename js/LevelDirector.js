@@ -42,6 +42,7 @@ LevelDirector.prototype.startLevel = function()
    {
       g_background = new Background("sky", 5);
       g_foreground = new Background("cloud", 8);
+      g_powerupGUN = false;
       g_alliance = [];
       g_obstacle = [];
 	  g_universe = "Heaven";
