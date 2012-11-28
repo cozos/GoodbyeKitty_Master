@@ -11,7 +11,10 @@ function collision_singleVSsingle(single1, single2, flag){
  */
 function collision_singleVSarray(single, array, flag){
 	for(var i = 0; i < array.length; i++){
-		checkCollision(single, array[i], flag);
+		if(checkCollision(single, array[i], flag) == true)
+		{
+			g_obstacle.splice(i,1);
+		}
 	}
 }
 	
@@ -107,7 +110,7 @@ function collision_arrayVSarray(array, array){
 			  	g_fuzzleaudio.volume = 1;
 			  	g_fuzzleaudio.play();
 			}
- 			
+ 			return true;
 		}
  	}
 	
