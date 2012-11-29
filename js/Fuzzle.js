@@ -324,7 +324,5 @@ fuzzle.prototype.up = function(){
     
     //Accelerates upwards
     this.gravity = -2;  
-    
-    g_context.drawImage(this.ImageFile, this.posx, this.posy, this.width, this.height);	  
 }
 
