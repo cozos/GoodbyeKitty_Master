@@ -284,9 +284,10 @@ fuzzle.prototype.collidedobstacle = function(){
     g_mouseDown = false;
 	}
 	else if(g_alliance.length > 0){
+		g_afterEffects = new AfterEffects("angelalliance", g_alliance[0].posx ,g_alliance[0].posy ,g_alliance[0].phase,g_alliance[0].phase);
 		g_alliance[0].posx = -300;
 		g_alliance.splice(0,1);
-
+		
 	  	g_fuzzleaudio = document.getElementById("allyDisappear");
 	  	g_fuzzleaudio.volume = 1;
 	  	g_fuzzleaudio.play();
