@@ -88,12 +88,12 @@ function keyboard()
 	{
 		g_fuzzle.upPressed = false;
 	}
-	/*if (g_keys[16] == true) //check if shift is pressed
+	if (g_keys[16] == true) //check if shift is pressed
 	{
 		g_fuzzle.collidedpowerup();
-	}*/
+	}
 	
-	/* DEBUGGING PURPOSES - PRESS CONTROL
+	// DEBUGGING PURPOSES - PRESS CONTROL
 	if(g_keys[17] == true){
 		var s = "g_alliance.length:" + g_alliance.length + "START";
 		for(var i = 0; i<g_alliance.length; i++){
@@ -102,7 +102,7 @@ function keyboard()
 		alert(s);
 		g_keys = [];
 	}
-	*/
+	
    }
    if (g_powerupGUN == true)
    {

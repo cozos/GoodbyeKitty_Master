@@ -110,6 +110,7 @@ fuzzle.prototype.render = function(){
         
        
     //Instantiates fuzzle's trail
+    if(g_universe == "Hell"){
     if (this.flag == 0){
 	var t;
 	if(Math.round(Math.random()) == 1){
@@ -121,7 +122,8 @@ fuzzle.prototype.render = function(){
     g_trail.push(t);
     } 
     this.flag = 0;
-    
+   }
+   
 	if (g_gameState == "inlevel")
 	{
 		// If player crashes into the floor
@@ -220,17 +222,17 @@ fuzzle.prototype.render = function(){
  * What happens when fuzzle collides into something.
  */
 fuzzle.prototype.collidedpowerup = function(){
-	var r = Math.round(Math.random() * 3);
+	var r = Math.round(Math.random() * 4);
 	if (r == 0 && g_universe == "Heaven"){
 		g_levelDirector.hellLevel();
 	}
-	else if (r == 1){
+	else if (r < 3){
 		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0);
 		g_alliance.push(a);
 	}
-	else if (r == 2){
+	else if (r < 5){
 		g_powerupGUN = true;
-		pause();
+		//pause();
 	}
 }
 
@@ -255,7 +257,7 @@ fuzzle.prototype.collidedobstacle = function(){
 * Makes Fuzzle go up.
 */  
 fuzzle.prototype.up = function(){
-    
+    if(g_universe == "Hell"){
     this.flag = 1;
     var t;
 	if(Math.round(Math.random()) == 1){
@@ -265,7 +267,7 @@ fuzzle.prototype.up = function(){
      	t = new trail("firetrail",-22);
     }
     g_trail.push(t);
-    
+    }
     // Going up is a pain in the ass without this
     if (this.velocity > 0){
     this.velocity = 0;
