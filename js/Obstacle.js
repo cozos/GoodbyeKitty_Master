@@ -162,7 +162,7 @@ obstacle.prototype.render = function(dummy){
 		}
 	}
 
-	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene")
+	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene" || g_gameState == "heavencutscene")
 	{
   	// Render the image
   	g_context.drawImage(this.ImageFile, this.posx, this.posy, this.width, this.height);

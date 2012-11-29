@@ -24,7 +24,7 @@ function Background(element,velocity)
  */
 Background.prototype.render = function()
 {
-	if (g_gameState != "inlevel" && g_gameState != "gameovercutscene" && g_gameState != "hellcutscene")
+	if (g_gameState != "inlevel" && g_gameState != "gameovercutscene" && g_gameState != "hellcutscene" && g_gameState != "heavencutscene")
 	{
 		if (this.myWidth != g_canvas.width || this.myHeight != g_canvas.height)
 		{
@@ -66,7 +66,7 @@ Background.prototype.render = function()
    this.myX1 -= (this.myVelocity * scrollRate);
    this.myX2 -= (this.myVelocity * scrollRate);
 	}
-	else if (g_gameState == "gameovercutscene" || g_gameState == "hellcutscene")
+	else if (g_gameState == "gameovercutscene" || g_gameState == "hellcutscene" || g_gameState == "heavencutscene")
 	{
    g_context.drawImage(this.BackgroundImage,
                        this.myX1, 0,

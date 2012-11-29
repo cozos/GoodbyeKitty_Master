@@ -2,7 +2,7 @@
 
 	//D attributes	this.d = document.getElementById("D");	this.dwidth = this.d.width * g_resize;	this.dheight = this.d.height * g_resize;
 
-	//M attributes	this.m = document.getElementById("M");	this.mwidth = this.m.width * g_resize;	this.mheight = this.m.height * g_resize;	//S attributes	this.s = document.getElementById("S");	this.swidth = this.s.width * g_resize;	this.sheight = this.s.height * g_resize;}/** * Renders the numbers as images. */NumberPrinter.prototype.render = function(){            g_context.fillStyle = "black";	    g_context.font="15pt Comic Sans MS";	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene")
+	//M attributes	this.m = document.getElementById("M");	this.mwidth = this.m.width * g_resize;	this.mheight = this.m.height * g_resize;	//S attributes	this.s = document.getElementById("S");	this.swidth = this.s.width * g_resize;	this.sheight = this.s.height * g_resize;}/** * Renders the numbers as images. */NumberPrinter.prototype.render = function(){            g_context.fillStyle = "black";	    g_context.font="15pt Comic Sans MS";	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene" || g_gameState == "heavencutscene")
 	{
 	printNumberIntoStringAsImages(g_fuzzle.score,0.50*g_canvas.width,0.10*g_canvas.height,0.35,false,false);
 	printNumberIntoStringAsImages(g_fuzzle.lives,0.95*g_canvas.width,0.06*g_canvas.height,0.35,false,false);
