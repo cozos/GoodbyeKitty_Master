@@ -161,6 +161,8 @@
 
 	function renderLoop()
 	{ 
+	
+	
 	if ( g_paused )
 	return;
 
@@ -247,7 +249,7 @@
  	 * DEVIL   = 14,15,16,17,18 	= 26.3%
  	 */
  	var n = Math.round(Math.random()*18);
-	if (n < 3) d = new obstacle("powerup",-16 * speed);
+	if (n < 3 /*18*/) d = new obstacle("powerup",-16 * speed);
 	else if (n < 7) d = new obstacle("health",-12 * speed);
 	else if (n < 14) d = new obstacle("pillar",-10 * speed);
 	else d = new obstacle("devil",-14 * speed);
@@ -388,9 +390,7 @@
             src="Images/Heart collect sprites4.png">
     <img    id="healthD5"
             src="Images/Heart collect sprites5.png">
-
-    <img    id="powerup"
-            src="Images/mysterybox.png">
+            
     <img    id="powerupD1"
             src="Images/Box collect sprites1.png">
     <img    id="powerupD2"

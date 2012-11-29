@@ -227,8 +227,18 @@ fuzzle.prototype.collidedpowerup = function(){
 		g_levelDirector.hellLevel();
 	}
 	else if (r < 3){
+		/*var s = "g_alliance.length:" + g_alliance.length + "START";
+		for(var i = 0; i<g_alliance.length; i++){
+			s = s + ", " +  g_alliance[i].position + "/" + g_alliance[i].total;
+		}
+		alert(s);*/
 		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0);
 		g_alliance.push(a);
+		/*s = "g_alliance.length:" + g_alliance.length + "START";
+		for(var i = 0; i<g_alliance.length; i++){
+			s = s + ", " +  g_alliance[i].position + "/" + g_alliance[i].total;
+		}
+		alert(s);*/
 		pause();
 	var AllianceFormed = document.getElementById("AllianceFormed");
 	g_context.drawImage(AllianceFormed, 0.5*g_canvas.width - (1.8*0.5*g_resize*AllianceFormed.width) , 0.5*g_canvas.height - (1.8*0.5*g_resize*AllianceFormed.height) , 1.8*AllianceFormed.width*g_resize, 1.8*AllianceFormed.height*g_resize);
