@@ -177,6 +177,20 @@
 	if(g_gameState == "inlevel") collision_singleVSarray(g_fuzzle,g_obstacle,1);
 	if(g_projectile.length != 0) renderArray(g_projectile);
 	if(g_devilDeathFlag > 0 || g_pillarDeathFlag > 0) g_afterEffects.render();
+	if(g_gameState == "hellcutscene")
+		{
+		var HellTime = document.getElementById("HellTime");
+		g_context.drawImage(HellTime, 0.5*g_canvas.width - (1.5*0.5*g_resize*HellTime.width) , 0.2*g_canvas.height - (1.5*0.5*g_resize*HellTime.height) , 1.5*HellTime.width*g_resize, 1.5*HellTime.height*g_resize);
+
+		var Survive60s = document.getElementById("Survive60s");
+		g_context.drawImage(Survive60s, 0.5*g_canvas.width - (0.5*g_resize*Survive60s.width) , 0.4*g_canvas.height - (0.5*g_resize*Survive60s.height) , Survive60s.width*g_resize, Survive60s.height*g_resize);
+		}
+	/*if(g_gameState == "heavencutscene")
+		{
+		var Rescue = document.getElementById("Rescue");
+		g_context.drawImage(Rescue, 0.5*g_canvas.width - (0.5*g_resize*Rescue.width) , 0.4*g_canvas.height - (0.5*g_resize*Rescue.height) , Rescue.width*g_resize, Rescue.height*g_resize);
+		}*/
+
 	}
 
 	function inputLoop()
@@ -251,7 +265,7 @@
 	else if (n < 7) d = new obstacle("health",-12 * speed);
 	else if (n < 14) d = new obstacle("pillar",-10 * speed);
 	else d = new obstacle("devil",-14 * speed);
-	
+
 	// Instantiates new Obstacle
 	g_obstacle.push(d);
 	
@@ -461,6 +475,12 @@
             src="Images/Lazer Zapper Obtained.png">
     <img    id="AllianceFormed"
             src="Images/Alliance Formed.png">
+    <img    id="HellTime"
+            src="Images/Hell Time.png">
+    <img    id="Survive60s"
+            src="Images/Survive60s.png">
+    <img    id="Rescue"
+            src="Images/Rescue.png">
 
     <img    id="zero"
             src="Images/0.png">	
