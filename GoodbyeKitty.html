@@ -192,7 +192,6 @@
 		var Rescue = document.getElementById("Rescue");
 		g_context.drawImage(Rescue, 0.5*g_canvas.width - (0.5*g_resize*Rescue.width) , 0.4*g_canvas.height - (0.5*g_resize*Rescue.height) , Rescue.width*g_resize, Rescue.height*g_resize);
 		}*/
-
 	}
 
 	function inputLoop()
@@ -267,7 +266,7 @@
 	else if (n < 7) d = new obstacle("health",-12 * speed);
 	else if (n < 14) d = new obstacle("pillar",-10 * speed);
 	else d = new obstacle("devil",-14 * speed);
-
+	
 	// Instantiates new Obstacle
 	g_obstacle.push(d);
 	
@@ -481,11 +480,7 @@
             src="Images/Survive60s.png">
     <img    id="Rescue"
             src="Images/Rescue.png">
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 17a123045ef1dd0b280117478d38b05763ed95ca
     <img    id="zero"
             src="Images/0.png">	
 
