@@ -266,5 +266,5 @@ function clockLoop()
 
 function allianceClockLoop()
 {
-	g_levelDirector.myAllianceClock++;
+	g_levelDirector.myAllianceClock += 0.2;
 }
