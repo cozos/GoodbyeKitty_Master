@@ -97,7 +97,7 @@ function keyboard()
 	if(g_keys[17] == true){
 		var s = "g_alliance.length:" + g_alliance.length + "START";
 		for(var i = 0; i<g_alliance.length; i++){
-			s = s + ", " +  g_alliance[i].position;
+			s = s + ", " +  g_alliance[i].position + "/" + g_alliance[i].total;
 		}
 		alert(s);
 		g_keys = [];
