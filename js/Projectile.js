@@ -34,14 +34,3 @@ Projectile.prototype.render = function(){
 		}
 	}
 }
-
-
-/**
- * What happens when the Projectile collides into something.
- */
-Projectile.prototype.collidedpowerup = function(){
-	//g_fuzzle.collidedobstacle();
-}
-
-Projectile.prototype.collidedobstacle = function(){
-}
