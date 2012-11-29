@@ -20,7 +20,7 @@ function Projectile(element, posx, posy){
 Projectile.prototype.render = function(){
 	g_context.drawImage(this.ImageFile, this.posx, this.posy, this.width, this.height);
 	this.posx += 10;
-	if (this.posx > 800)
+	if (this.posx > g_canvas.width)
 	{
 		g_projectile.splice(0,1);
 	}
