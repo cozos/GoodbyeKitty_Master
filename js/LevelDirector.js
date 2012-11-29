@@ -59,7 +59,7 @@ LevelDirector.prototype.startLevel = function()
       g_audioLoop.loop = true;
       g_audioLoop.volume = 0.3;
       g_audioLoop.currentTime = 0;
-      //g_audioLoop.play();
+      g_audioLoop.play();
    }
 
    g_inputInterval = setInterval(inputLoop, 1000/24);
@@ -77,13 +77,13 @@ LevelDirector.prototype.hellLevel = function()
    	g_universe = "Hell";
    	g_tempalliance = g_alliance;
    	g_alliance = [];
-   	var a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1);
+   	var a;
+	a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1,0,windowHeight);
 	g_alliance.push(a);
-	a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1);
+	a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1,windowWidth,windowHeight);
 	g_alliance.push(a);
-        a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1);
-	g_alliance.push(a);
-	     
+	a = new Alliance("devil", g_alliance.length, g_alliance.length+1,1,0.5 * windowWidth,windowHeight);
+	g_alliance.push(a); 
 }
 
 LevelDirector.prototype.heavenLevel = function()
@@ -94,12 +94,12 @@ LevelDirector.prototype.heavenLevel = function()
    	g_universe = "Heaven";
     g_tempalliance = g_alliance;
    	g_alliance = [];
-   	var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,1);
+   	var a;
+   	for (var i = 0; i< 10; i++){
+   	a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,1,(1+i) * 0.1 *windowWidth,0);
 	g_alliance.push(a);
-	a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,1);
-	g_alliance.push(a);
-    a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,1);
-	g_alliance.push(a);
+	}
+	
 }
 
 LevelDirector.prototype.gameOverCutScene = function()
@@ -226,7 +226,7 @@ function pause()
 	{
 		g_paused = false;
 		gobacktoGame();
-		//g_audioLoop.play();
+		g_audioLoop.play();
 		g_gameState = "inlevel";
 	}
 }

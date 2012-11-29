@@ -57,6 +57,7 @@
 	var g_tempalliance = [];
 	var g_projectile = [];
 
+
 	var g_powerupGUN = false;
 	var g_powerupGUNtimer = 0;
 	var g_powerupGUNrenderFlag = false;
@@ -176,12 +177,13 @@
 	renderArray(g_alliance);
 	g_fuzzle.render();
 	renderArray(g_trail);
+	
 	renderHUD();
 	g_HUD.render();
 	g_NumberPrinter.render();
 	if(g_gameState == "inlevel") collision_singleVSarray(g_fuzzle,g_obstacle,1);
 	if(g_projectile.length != 0) renderArray(g_projectile);
-	if(g_devilDeathFlag > 0 || g_pillarDeathFlag > 0) g_afterEffects.render();
+	if(g_devilDeathFlag > 0 || g_pillarDeathFlag > 0) g_afterEffects.render(0);
 	if(g_gameState == "hellcutscene")
 		{
 		var HellTime = document.getElementById("HellTime");
@@ -215,7 +217,7 @@
 				g_audioLoop.pause();
 				g_audioLoop = document.getElementById("falling");
 				g_audioLoop.volume = 1;
-				//g_audioLoop.play();				
+				g_audioLoop.play();				
 				g_levelDirector.gameOverCutScene();
 			}
 			if (g_fuzzle.health >= 9)
@@ -418,6 +420,21 @@
     <img    id="powerupD5"
             src="Images/Box collect sprites5.png">
 
+	<img    id="allyD1"
+            src="Images/assisting ally disappear sprites1.png">
+    <img    id="allyD2"
+            src="Images/assisting ally disappear sprites2.png">
+    <img    id="allyD3"
+            src="Images/assisting ally disappear sprites3.png">
+    <img    id="allyD4"
+            src="Images/assisting ally disappear sprites4.png">
+    <img    id="allyD5"
+            src="Images/assisting ally disappear sprites5.png">
+    <img    id="allyD6"
+            src="Images/assisting ally disappear sprites6.png">
+    <img    id="allyD7"
+            src="Images/assisting ally disappear sprites7.png">
+	
     <img    id="gamemainmenu"
             src="Images/gamemainmenu.png">
     <img    id="gameinstructionscreen"

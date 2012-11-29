@@ -64,7 +64,9 @@ function obstacle(element,velocity){
 	this.powerupDeathArray.push(this.powerupD3);
 	this.powerupDeathArray.push(this.powerupD4);
 	this.powerupDeathArray.push(this.powerupD5);
-
+	
+	this.counter = 0;
+	this.state = 0;
 	this.pillarDeathCounter = 0;
 	this.devilDeathCounter = 0;
 	this.lives = 1;
@@ -134,32 +136,46 @@ obstacle.prototype.render = function(dummy){
 
 		if (g_powerupDeathFlag > 0)
 		{
-			g_context.drawImage(this.powerupDeathArray[g_powerupDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.powerupDeathArray[g_powerupDeathCounter].width * g_resize * 0.5, this.powerupDeathArray[g_powerupDeathCounter].height * g_resize * 0.5);
-			if(g_powerupDeathCounter <= 4)
-			{
-				g_powerupDeathFlag++;
-				if(g_powerupDeathCounter == 4)
-				{
-					g_powerupDeathFlag = 0;
-					this.powerupDeathArray = [];
-				}
+			if(this.state < 5){
+			g_context.drawImage(this.powerupDeathArray[this.state], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.powerupDeathArray[this.state].width * g_resize * 0.5, this.powerupDeathArray[this.state].height * g_resize * 0.5);
+			this.counter++;
+		
+			if(this.counter > 6){
+				this.counter = 0;
+				this.state++;
 			}
-			g_powerupDeathCounter = Math.floor(g_powerupDeathFlag/2);
+				
+			}
+			else{
+				g_powerupDeathFlag = 0;
+				this.powerupDeathArray = [];
+			}
 		}
+		
 		if (g_healthDeathFlag > 0)
 		{
-			g_context.drawImage(this.healthDeathArray[g_healthDeathCounter], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.healthDeathArray[g_healthDeathCounter].width * g_resize * 0.5, this.healthDeathArray[g_healthDeathCounter].height * g_resize * 0.5);
-			if(g_healthDeathCounter <= 4)
-			{
-				g_healthDeathFlag++;
-				if(g_healthDeathCounter == 4)
-				{
-					g_healthDeathFlag = 0;
-					this.healthDeathArray = [];
-				}
+			if(this.state < 5){
+			g_context.drawImage(this.healthDeathArray[this.state], g_fuzzle.posx - g_canvas.width*0.15, g_fuzzle.posy - g_canvas.height*0.18, this.healthDeathArray[this.state].width * g_resize * 0.5, this.healthDeathArray[this.state].height * g_resize * 0.5);
+			this.counter++;
+		
+			if(this.counter > 6){
+				this.counter = 0;
+				this.state++;
 			}
-			g_healthDeathCounter = Math.floor(g_healthDeathFlag/2);
+				
+			}
+			else{
+				g_healthDeathFlag = 0;
+				this.healthDeathArray = [];
+			}
 		}
+		
+		if(g_healthDeathFlag == 0 && g_powerupDeathFlag == 0){
+			//this.counter = 0;
+			//this.state = 0;
+		}
+		
+	
 	}
 
 	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene" || g_gameState == "heavencutscene")

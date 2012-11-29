@@ -254,12 +254,15 @@ fuzzle.prototype.render = function(){
 fuzzle.prototype.collidedpowerup = function(){
 	var r = Math.round(Math.random() * 4);
 	
+	
 	if (r == 0 && g_universe == "Heaven"){
+		g_powerupGUNtimer = 0;
+		g_powerupGUN = true;
 		g_levelDirector.hellLevel();
 	}
 	
 	else if (r < 3){
-		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0);
+		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0,0,0);
 		g_alliance.push(a);
 		if (g_pause4firstALLIANCE == true)
 		{
@@ -271,6 +274,7 @@ fuzzle.prototype.collidedpowerup = function(){
 	}
 	
 	else if (r < 5){
+		g_powerupGUNtimer -= 300;
 		g_powerupGUN = true;
 		if (g_pause4firstGUN == true)
 		{
@@ -292,10 +296,7 @@ fuzzle.prototype.collidedobstacle = function(){
     g_mouseDown = false;
 	}
 	else if(g_alliance.length > 0){
-		//g_afterEffects = new AfterEffects("angelalliance", g_alliance[0].posx ,g_alliance[0].posy ,g_alliance[0].phase,g_alliance[0].phase);
-		g_alliance[0].posx = -300;
-		g_alliance.splice(0,1);
-		
+		g_alliance[0].deathsequence = 1;
 	  	g_fuzzleaudio = document.getElementById("allyDisappear");
 	  	g_fuzzleaudio.volume = 1;
 	  	g_fuzzleaudio.play();

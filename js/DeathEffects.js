@@ -77,11 +77,12 @@ function AfterEffects(element, posx, posy, xvelocity, yvelocity){
 	this.pillarDeathArray.push(this.PillarD6);
 	this.pillarDeathArray.push(this.PillarD7);
 	this.pillarDeathArray.push(this.PillarD8);
-
+	
 	//AfterEffects Attributes
 	this.posx = posx;
 	this.posy = posy;
 	this.counter = 0;
+	this.state = 0;
 	this.xvelocity = xvelocity;
 	this.yvelocity = yvelocity;
 }
@@ -89,43 +90,50 @@ function AfterEffects(element, posx, posy, xvelocity, yvelocity){
 /**
 * Renders AfterEffects.
 */
-AfterEffects.prototype.render = function(){
+
+AfterEffects.prototype.render = function(arraypos){
 	if (this.type == "devil")
-	{
-		if (g_devilDeathFlag > 0)
-		{
-			g_context.drawImage(this.devilDeathArray[g_devilDeathCounter],this.posx, this.posy, this.devilDeathArray[g_devilDeathCounter].width * g_resize, this.devilDeathArray[g_devilDeathCounter].height * g_resize);
-			if(g_devilDeathCounter <= 7)
-			{
-				g_devilDeathFlag++;
-				if(g_devilDeathCounter == 7)
-				{
-					g_devilDeathFlag = 0;
-					this.devilDeathArray = [];
-				}
+	{	
+		
+		if(this.state < 9){
+		g_context.drawImage(this.devilDeathArray[this.state],this.posx, this.posy, this.devilDeathArray[this.state].width * g_resize, this.devilDeathArray[this.state].height * g_resize);
+		this.counter++;
+		
+			if(this.counter > 1){
+				this.counter = 0;
+				this.state++;
 			}
-			g_devilDeathCounter = Math.floor(g_devilDeathFlag/2);
+				
 		}
+		
+		else{
+			this.devilDeathArray = [];
+		}
+
 		this.posx += this.xvelocity;
 		this.posy += this.yvelocity;
 	}
+
 	if (this.type == "pillar")
-	{
-		if (g_pillarDeathFlag > 0)
-		{
-			g_context.drawImage(this.pillarDeathArray[g_pillarDeathCounter],this.posx, this.posy, this.pillarDeathArray[g_pillarDeathCounter].width * g_resize, this.pillarDeathArray[g_pillarDeathCounter].height * g_resize);
-			if(g_pillarDeathCounter <= 7)
-			{
-				g_pillarDeathFlag++;
-				if(g_pillarDeathCounter == 7)
-				{
-					g_pillarDeathFlag = 0;
-					this.pillarDeathArray = [];
-				}
+	{	
+		
+		if(this.state < 8){
+		g_context.drawImage(this.pillarDeathArray[this.state],this.posx, this.posy, this.pillarDeathArray[this.state].width * g_resize, this.pillarDeathArray[this.state].height * g_resize);
+		this.counter++;
+		
+			if(this.counter > 3){
+				this.counter = 0;
+				this.state++;
 			}
-			g_pillarDeathCounter = Math.floor(g_pillarDeathFlag/2);
+				
 		}
+		
+		else{
+			this.pillarDeathArray = [];
+		}
+
 		this.posx += this.xvelocity;
 		this.posy += this.yvelocity;
 	}
+	
 }
