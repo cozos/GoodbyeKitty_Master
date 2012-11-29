@@ -102,25 +102,24 @@ function keyboard()
 		alert(s);
 		g_keys = [];
 	}
-	
-   }
-   if (g_powerupGUN == true)
-   {
-	if (g_keys[90] == true) //check if z arrow is pressed
-	{
-		g_zKeyPressed = true;
-		if (g_zKeyCounter%3 == 0)
+	if (g_powerupGUN == true)
+   	{
+		if (g_keys[90] == true) //check if z arrow is pressed
 		{
-			// create the laser bullet
-			var a = new Projectile("laserBeam",g_fuzzle.posx + g_fuzzle.FLRwidth,g_fuzzle.posy + 0.65*g_fuzzle.FLRheight);
-			g_projectile.push(a);
+			g_zKeyPressed = true;
+			if (g_zKeyCounter%3 == 0)
+			{
+				// create the laser bullet
+				var a = new Projectile("laserBeam",g_fuzzle.posx + g_fuzzle.FLRwidth,g_fuzzle.posy + 0.65*g_fuzzle.FLRheight);
+				g_projectile.push(a);
+			}
+			g_zKeyCounter++;	
 		}
-		g_zKeyCounter++;	
-	}
-	else 
-	{
-		g_zKeyPressed = false;
-		g_zKeyCounter = 0;
-	}
+		else 
+		{
+			g_zKeyPressed = false;
+			g_zKeyCounter = 0;
+		}
+ 	  }	
    }
 }

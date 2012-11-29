@@ -207,6 +207,11 @@ function pause()
 
 	var pauseScreen = document.getElementById("pausescreen");
 	g_context.drawImage(pauseScreen, 0, 0, g_canvas.width, g_canvas.height);
+	var pressP2Continue = document.getElementById("PressP");
+	g_context.drawImage(pressP2Continue, 0.5*g_canvas.width - (0.5*g_resize*pressP2Continue.width) , 0.3*g_canvas.height - (0.5*g_resize*pressP2Continue.height) , pressP2Continue.width*g_resize, pressP2Continue.height*g_resize);
+	var GamePaused = document.getElementById("GamePaused");
+	g_context.drawImage(GamePaused, 0.5*g_canvas.width - (1.5*0.5*g_resize*GamePaused.width) , 0.2*g_canvas.height - (1.5*0.5*g_resize*GamePaused.height) , GamePaused.width*g_resize*1.5, GamePaused.height*g_resize*1.5);
+
 	}
 	else
 	{
