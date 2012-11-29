@@ -40,7 +40,7 @@ Projectile.prototype.render = function(){
  * What happens when the Projectile collides into something.
  */
 Projectile.prototype.collidedpowerup = function(){
-	//this.posx =
+	//g_fuzzle.collidedobstacle();
 }
 
 Projectile.prototype.collidedobstacle = function(){

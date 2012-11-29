@@ -33,7 +33,7 @@ HUD.prototype.render = function(){
 	var i = 1;
 	var health = 1;
 
-	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene")
+	if (g_gameState == "inlevel" || g_gameState == "gameovercutscene" || g_gameState == "hellcutscene" || g_gameState == "heavencutscene")
 	{
 	g_context.drawImage(this.heartstorage, originX - 0.5*this.HSwidth, originY - 0.5*this.HSheight, this.HSwidth, this.HSheight);
 

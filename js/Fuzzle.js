@@ -168,7 +168,7 @@ fuzzle.prototype.render = function(){
 		
 		if(this.posx < g_canvas.width * 0.45){
 			this.posx += g_canvas.width/200;
-			this.velocity = -2;
+			this.velocity = -4;
 		}
 		else{
 			this.velocity = 2;
@@ -181,6 +181,36 @@ fuzzle.prototype.render = function(){
 		g_gameState = "inlevel";
 		g_background = new Background("hellsky", 5);
 	     	g_foreground = new Background("hellrocks", 8);
+	
+   		g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
+		g_clockInterval = setInterval(clockLoop, 100);
+   		this.posx = 0.15 * g_canvas.width;
+   		this.posy = 0.5 * g_canvas.height;
+   		this.gravity = 1;
+   		this.velocity = 1;
+		g_obstacle = [];
+		g_alliance = g_tempalliance;
+   		}
+	}
+	
+	if (g_gameState == "heavencutscene"){
+		
+		if(this.posx < g_canvas.width * 0.45){
+			this.posx += g_canvas.width/200;
+			//this.velocity = -2;
+			this.velocity = 0;
+		}
+		else{
+			this.velocity = -4;
+			//DONOTHING
+		}
+		
+		g_context.drawImage(this.fuzzlearray[0], this.posx, this.posy, this.fuzzlearray[0].width * g_resize * 0.2, this.fuzzlearray[0].height * g_resize * 0.2);
+		
+		if(g_fuzzle.posy < 0){
+		g_gameState = "inlevel";
+		g_background = new Background("sky", 5);
+	    g_foreground = new Background("cloud", 8);
 	
    		g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
 		g_clockInterval = setInterval(clockLoop, 100);
@@ -223,33 +253,26 @@ fuzzle.prototype.render = function(){
  */
 fuzzle.prototype.collidedpowerup = function(){
 	var r = Math.round(Math.random() * 4);
+	
 	if (r == 0 && g_universe == "Heaven"){
 		g_levelDirector.hellLevel();
 	}
+	
 	else if (r < 3){
-		/*var s = "g_alliance.length:" + g_alliance.length + "START";
-		for(var i = 0; i<g_alliance.length; i++){
-			s = s + ", " +  g_alliance[i].position + "/" + g_alliance[i].total;
-		}
-		alert(s);*/
 		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0);
 		g_alliance.push(a);
-		/*s = "g_alliance.length:" + g_alliance.length + "START";
-		for(var i = 0; i<g_alliance.length; i++){
-			s = s + ", " +  g_alliance[i].position + "/" + g_alliance[i].total;
-		}
-		alert(s);*/
 		pause();
-	var AllianceFormed = document.getElementById("AllianceFormed");
-	g_context.drawImage(AllianceFormed, 0.5*g_canvas.width - (1.8*0.5*g_resize*AllianceFormed.width) , 0.5*g_canvas.height - (1.8*0.5*g_resize*AllianceFormed.height) , 1.8*AllianceFormed.width*g_resize, 1.8*AllianceFormed.height*g_resize);
+		var AllianceFormed = document.getElementById("AllianceFormed");
+		g_context.drawImage(AllianceFormed, 0.5*g_canvas.width - (1.8*0.5*g_resize*AllianceFormed.width) , 0.5*g_canvas.height - (1.8*0.5*g_resize*AllianceFormed.height) , 1.8*AllianceFormed.width*g_resize, 1.8*AllianceFormed.height*g_resize);
 	}
+	
 	else if (r < 5){
 		g_powerupGUN = true;
 		pause();
-	var LaserObtained = document.getElementById("LaserObtained");
-	g_context.drawImage(LaserObtained, 0.5*g_canvas.width - (1.8*0.5*g_resize*LaserObtained.width) , 0.5*g_canvas.height - (1.8*0.5*g_resize*LaserObtained.height) , 1.8*LaserObtained.width*g_resize, 1.8*LaserObtained.height*g_resize);
-	var pressZ = document.getElementById("PressZ");
-	g_context.drawImage(pressZ, 0.5*g_canvas.width - (1.8*0.5*g_resize*pressZ.width) , 0.65*g_canvas.height - (1.8*0.5*g_resize*pressZ.height) , 1.8*pressZ.width*g_resize, 1.8*pressZ.height*g_resize);
+		var LaserObtained = document.getElementById("LaserObtained");
+		g_context.drawImage(LaserObtained, 0.5*g_canvas.width - (1.8*0.5*g_resize*LaserObtained.width) , 0.5*g_canvas.height - (1.8*0.5*g_resize*LaserObtained.height) , 1.8*LaserObtained.width*g_resize, 1.8*LaserObtained.height*g_resize);
+		var pressZ = document.getElementById("PressZ");
+		g_context.drawImage(pressZ, 0.5*g_canvas.width - (1.8*0.5*g_resize*pressZ.width) , 0.65*g_canvas.height - (1.8*0.5*g_resize*pressZ.height) , 1.8*pressZ.width*g_resize, 1.8*pressZ.height*g_resize);
 	}
 }
 

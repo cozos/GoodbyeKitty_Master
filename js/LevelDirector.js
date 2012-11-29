@@ -86,11 +86,18 @@ LevelDirector.prototype.hellLevel = function()
 
 LevelDirector.prototype.heavenLevel = function()
 {
-		
-   	  g_universe = "Heaven";
-      g_background = new Background("sky", 5);
-      g_foreground = new Background("cloud", 8);
-      g_obstacle = [];
+	g_gameState = "heavencutscene";
+	clearInterval(g_createObstacleInterval);
+	clearInterval(g_clockInterval);
+   	g_universe = "Heaven";
+    g_tempalliance = g_alliance;
+   	g_alliance = [];
+   	var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,1);
+	g_alliance.push(a);
+	a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,1);
+	g_alliance.push(a);
+    a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,1);
+	g_alliance.push(a);
 }
 
 LevelDirector.prototype.gameOverCutScene = function()
