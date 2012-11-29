@@ -261,18 +261,26 @@ fuzzle.prototype.collidedpowerup = function(){
 	else if (r < 3){
 		var a = new Alliance("angelalliance", g_alliance.length, g_alliance.length+1,0);
 		g_alliance.push(a);
+		if (g_pause4firstALLIANCE == true)
+		{
 		pause();
 		var AllianceFormed = document.getElementById("AllianceFormed");
 		g_context.drawImage(AllianceFormed, 0.5*g_canvas.width - (1.8*0.5*g_resize*AllianceFormed.width) , 0.5*g_canvas.height - (1.8*0.5*g_resize*AllianceFormed.height) , 1.8*AllianceFormed.width*g_resize, 1.8*AllianceFormed.height*g_resize);
+		g_pause4firstALLIANCE = false;
+		}
 	}
 	
 	else if (r < 5){
 		g_powerupGUN = true;
+		if (g_pause4firstGUN == true)
+		{
 		pause();
 		var LaserObtained = document.getElementById("LaserObtained");
 		g_context.drawImage(LaserObtained, 0.5*g_canvas.width - (1.8*0.5*g_resize*LaserObtained.width) , 0.5*g_canvas.height - (1.8*0.5*g_resize*LaserObtained.height) , 1.8*LaserObtained.width*g_resize, 1.8*LaserObtained.height*g_resize);
 		var pressZ = document.getElementById("PressZ");
 		g_context.drawImage(pressZ, 0.5*g_canvas.width - (1.8*0.5*g_resize*pressZ.width) , 0.65*g_canvas.height - (1.8*0.5*g_resize*pressZ.height) , 1.8*pressZ.width*g_resize, 1.8*pressZ.height*g_resize);
+		g_pause4firstGUN = false;
+		}
 	}
 }
 
