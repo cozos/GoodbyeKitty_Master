@@ -8,6 +8,7 @@ function LevelDirector()
 {
    this.myCurrentLevel = 0;
    this.myClock = 0;
+   this.myAllianceClock = 0;
 }
 
 LevelDirector.prototype.mainMenu = function()
@@ -63,6 +64,7 @@ LevelDirector.prototype.startLevel = function()
 
    g_inputInterval = setInterval(inputLoop, 1000/24);
    g_clockInterval = setInterval(clockLoop, 100);
+   g_allianceClockInterval = setInterval(allianceClockLoop, 1000/24);
    g_renderInterval = setInterval(renderLoop, 1000/24);
    g_createObstacleInterval = setInterval(createObstacle, 1000/1000);
 }
@@ -260,4 +262,9 @@ function clockLoop()
 	g_fuzzle.score += (g_levelDirector.myCurrentLevel+1) * 3;
 	g_helltimer += 1;
 	}
+}
+
+function allianceClockLoop()
+{
+	g_levelDirector.myAllianceClock++;
 }
