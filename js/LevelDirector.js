@@ -104,6 +104,7 @@ LevelDirector.prototype.heavenLevel = function()
 
 LevelDirector.prototype.gameOverCutScene = function()
 {
+	var saveData;
 	g_gameState = "gameovercutscene";
 
 	clearInterval(g_inputInterval);
@@ -116,7 +117,7 @@ LevelDirector.prototype.gameOverCutScene = function()
 
 	playCounter = 1;
 
-	if (firstTimePlay == true)
+	if(firstTimePlay && !hasLoaded)
 	{
 		bestScore = g_fuzzle.score;
 		// show best score
@@ -127,24 +128,45 @@ LevelDirector.prototype.gameOverCutScene = function()
 		totalPowerupsCollected = powerupsCollectedCounter;
 		totalDeath = deathCounter;
 		firstTimePlay = false;
-	} else
+	}
+	else
 	{
 		if (g_fuzzle.score > bestScore)
 		{
 			bestScore = g_fuzzle.score;
 			// show best score
 		}
-		else {bestScore = bestScore;}
+		
 		if (g_fuzzle.score < worstScore)
 		{
 			worstScore = g_fuzzle.score;
 		}
-		else {worstScore = worstScore;}
+		
 		totalPlayTime += Math.round(g_levelDirector.myClock);
 		totalPlay += playCounter;
 		totalHeartsCollected = heartsCollectedCounter;
 		totalPowerupsCollected = powerupsCollectedCounter;
 		totalDeath = deathCounter;
+	}
+	
+	// If we support HTML5 Local Storage, we're going to
+	// create a JSON string and then store that.
+	if(supports_storage)
+	{
+		//alert("The enemy has taken the intelligence.");
+		
+		// Construct the JSON string.
+		saveData = '{"bestScore":' + bestScore +
+		',"worstScore":' + worstScore +
+		',"totalPlayTime":' + totalPlayTime +
+		',"totalPlay":' + totalPlay +
+		',"totalHeartsCollected":' + totalHeartsCollected +
+		',"totalPowerupsCollected":' + totalPowerupsCollected +
+		',"totalDeath":' + totalDeath +
+		'}';
+		
+		// Now store it.
+		window.localStorage.setItem(storage_prefix + 'SavedScores', saveData);
 	}
 }
 

@@ -107,7 +107,7 @@
 	 * - Heaven
 	 * - Hell
 	 */
-	var g_universe = "Heaven";
+	var g_universe = "Hell";
 	var g_helltimer = 0;
 	
 	//Audio manager
@@ -118,6 +118,7 @@
 	var bestScore = 0;
 	var worstScore = 0;
 	var firstTimePlay = true;
+	var hasLoaded = false; // This is set to true if we load stuff from local storage.
 	var totalPlayTime = 0;
 	var totalPlay = 0;
 	var totalHeartsCollected = 0;
@@ -128,11 +129,71 @@
 	var powerupsCollectedCounter = 0;
 	var deathCounter = 0;
 
+	//Storage Prefix - Change if conflicts occur with local storage.
+	var storage_prefix = "gk_";
+	
+	//Variable that stores if the browser supports HTML5 storage.
+	//False by default
+	var supports_storage = false;
+		
+	/**
+	* Checks to see if the browser is compatible with HTML5 Web Storage.
+	* IE8+, FF3.5+, Safari 4+, Chrome 4+, Opera 10.5+, iOS 2.0+, and
+	* Android 2.0+, from my sources, support it.
+	* Courtesy of http://diveintohtml5.info/storage.html
+	*/
+	
+	function supports_html5_storage() {
+		try {
+			return 'localStorage' in window && window['localStorage'] !== null;
+		} catch (e) {
+			return false;
+		}
+	}
+	
+	/**
+	* Initializes local storage. Checks to see if the browser is
+	* compatible with Web Storage, then checks to see if the local
+	* JSON exists.
+	*/
+	
+	function initStorage() {
+		var localStorage; // the storage variable.
+	
+		if(!supports_storage) // if we don't support it, gtfo.
+			return;
+			
+		/* If we get here, let's assume that we support HTML5 Storage. */
+		
+		//alert("The Control Point is being contested.");
+		
+		localStorage = JSON.parse(window.localStorage.getItem(storage_prefix + 'SavedScores'));
+		
+		if(!localStorage) // if nothing is found.
+			return;
+		
+		//alert(localStorage.bestScore);
+		
+		bestScore = localStorage.bestScore;
+		// show best score
+		worstScore = localStorage.worstScore;
+		totalPlayTime = localStorage.totalPlayTime;
+		totalPlay = localStorage.totalPlay;
+		totalHeartsCollected = localStorage.totalHeartsCollected;
+		totalPowerupsCollected = localStorage.totalPowerupsCollected;
+		totalDeath = localStorage.totalDeath;
+		
+		hasLoaded = true;
+		//alert(localStorage);
+	}
+	
 	/**
  	* It's the main.
  	*/
 	function main(){
 		//Initializes main screen, key controls. Game start event is handled by mousedown event
+		supports_storage = supports_html5_storage(); // we're gonna check to see if we suppport HTML5 storage.
+		initStorage();
 		initCanvas();
 		rendermainmenu();
 		document.addEventListener('keydown', keyDown, false);
